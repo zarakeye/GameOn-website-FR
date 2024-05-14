@@ -37,6 +37,11 @@ img {
 .header-logo {
     float: left;
 }
+
+.header-logo img {
+  width: 277px;
+  height: 100%;
+}
 .main-navbar {
     float: right;
 }
