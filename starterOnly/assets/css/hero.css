@@ -10,11 +10,14 @@
 .hero-content {
   padding: 51px 67px;
   grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background: var(--third-color-1);
   color: var(--secondary-color);
   position: relative;
   text-align: left;
-  min-width: 424px;
+  /* min-width: 424px; */
 }
 .hero-content::after {
   content: "";
@@ -55,6 +58,7 @@
   width: 100%;
   height: 100%;
   display: block;
+  object-fit: cover;
   padding: 0;
 }
 
