@@ -2,6 +2,16 @@
   --font-default: "DM Sans", Arial, Helvetica, sans-serif;
   --font-slab: var(--font-default);
   --modal-duration: 0.8s;
+
+  /* Colors */
+  --main-color: #ff0000;
+  --main-color-1: #fe142f;
+  --main-color-2: #e54858;
+  --secondary-color: #ffffff;
+  --third-color: #000000;
+  --third-color-1: #232323;
+  --fourth-color: #3876ac;
+  --fifth-color: #279e7a;
 }
 
 * {

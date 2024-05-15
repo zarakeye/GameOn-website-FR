@@ -16,11 +16,11 @@
   max-width: 500px;
   animation-name: modalopen;
   animation-duration: var(--modal-duration);
-  background: #232323;
+  background: var(--third-color-1);
   border-radius: 10px;
   overflow: hidden;
   position: relative;
-  color: #fff;
+  color: var(--secondary-color);
   padding-top: 10px;
 }
 
@@ -52,7 +52,7 @@ input {
 .formData[data-error]::after {
   content: attr(data-error);
   font-size: 0.4em;
-  color: #e54858;
+  color: var(--main-color-2);
   display: block;
   margin-top: 7px;
   margin-bottom: 7px;
@@ -65,7 +65,7 @@ input {
   opacity: 1;
 }
 .formData[data-error-visible="true"] .text-control {
-  border: 2px solid #e54858;
+  border: 2px solid var(--main-color-2);
 }
 /* 
 input[data-error]::after {
@@ -85,7 +85,7 @@ input[data-error]::after {
   display: block;
   width: 20px;
   height: 20px;
-  border: 2px solid #279e7a;
+  border: 2px solid var(--fifth-color);
   border-radius: 50%;
   text-indent: 29px;
   white-space: nowrap;
@@ -99,7 +99,7 @@ input[data-error]::after {
   content: "";
   width: 13px;
   height: 13px;
-  background-color: #279e7a;
+  background-color: var(--fifth-color);
   border-radius: 50%;
   text-indent: 29px;
   white-space: nowrap;
@@ -118,7 +118,7 @@ input[data-error]::after {
   opacity: 1;
 }
 .checkbox-input:checked + .checkbox2-label .checkbox-icon {
-  background: #279e7a;
+  background: var(--fifth-color);
 }
 .checkbox2-label .checkbox-icon {
   border-radius: 4px;
@@ -131,8 +131,8 @@ input[data-error]::after {
   border-radius: 2px;
   background: transparent;
   border: 2px solid transparent;
-  border-bottom-color: #fff;
-  border-left-color: #fff;
+  border-bottom-color: var(--secondary-color);
+  border-left-color: var(--secondary-color);
   transform: rotate(-55deg);
   left: 21%;
   top: 19%;
@@ -154,7 +154,7 @@ input[data-error]::after {
   content: " ";
   height: 33px;
   width: 3px;
-  background-color: #fff;
+  background-color: var(--secondary-color);
 }
 .close:before {
   transform: rotate(45deg);
@@ -164,13 +164,13 @@ input[data-error]::after {
 }
 .btn-submit,
 .btn-signup {
-  background: #fe142f;
+  background: var(--main-color-1);
   display: block;
   margin: 0 auto;
   border-radius: 7px;
   font-size: 1rem;
   padding: 12px 82px;
-  color: #fff;
+  color: var(--secondary-color);
   cursor: pointer;
   border: 0;
 }
@@ -186,7 +186,7 @@ input[data-error]::after {
   display: none;
 }
 .select-selected {
-  background-color: #fff;
+  background-color: var(--secondary-color);
 }
 
 /* Style the arrow inside the select element: */
@@ -198,8 +198,8 @@ input[data-error]::after {
   width: 11px;
   height: 11px;
   border: 3px solid transparent;
-  border-bottom-color: #f00;
-  border-left-color: #f00;
+  border-bottom-color: var(--main-color);
+  border-left-color: var(--main-color);
   transform: rotate(-48deg);
   border-radius: 5px 0 5px 0;
 }
@@ -212,7 +212,7 @@ input[data-error]::after {
 
 .select-items div,
 .select-selected {
-  color: #000;
+  color: var(--third-color);
   padding: 11px 16px;
   border: 1px solid transparent;
   border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
@@ -224,7 +224,7 @@ input[data-error]::after {
 /* Style items (options): */
 .select-items {
   position: absolute;
-  background-color: #fff;
+  background-color: var(--secondary-color);
   top: 89%;
   left: 0;
   right: 0;
