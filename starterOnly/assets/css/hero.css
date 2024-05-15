@@ -66,15 +66,17 @@
   display: none;
 }
 
-@media screen and (max-width: 800px) {
+/* @media screen and (max-width: 800px) { */
+@media screen and (max-width: 1020px) {
   .hero-section {
     display: block;
     box-shadow: unset;
   }
   .hero-content {
-    background: var(--third-color-1);
+    background: var(--secondary-color);
     color: var(--third-color);
-    padding: 20px;
+    /* padding: 20px; */
+    padding: initial;
   }
   .hero-content::after {
     content: unset;
