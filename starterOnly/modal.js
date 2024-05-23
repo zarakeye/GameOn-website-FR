@@ -172,6 +172,7 @@ form.addEventListener('submit', function (e) {
     e.preventDefault();
     errors.birthdate = "Veuillez renseigner votre date de naissance";
 
+
     const oldErrMsg = document.querySelector("#birthdate_error");
     if (oldErrMsg) {
       oldErrMsg.remove();
@@ -347,6 +348,59 @@ email.addEventListener("input", (e) => {
     emailField.setAttribute("data-error", "false");
     emailField.setAttribute("data-error-visible", "false");
     const newErrMsg = document.getElementById("email_error");
+    if (newErrMsg) {
+      newErrMsg.remove();
+    }
+  }
+});
+
+birthdate.addEventListener("input", (e) => {
+  e.preventDefault();
+
+  const birthdateFormated = e.target.valueAsDate;
+  const day = birthdateFormated.getDate();
+  const month = birthdateFormated.getMonth() + 1;
+  const year = birthdateFormated.getFullYear();
+  const date = `${day}/${month}/${year}`;
+
+  if (!regexpBirthdate.test(date)) {
+    errors.birthdate = "La date de naissance n'est pas valide";
+  } else {
+    errors.birthdate = "";
+  }
+
+  if (birthdate.classList.contains("error")) {
+    birthdate.classList.remove("error");
+  }
+  if (date.length === 0) {
+    errors.birthdate = "Veuillez renseigner votre date de naissance";
+  } else if (date.length !== 0 && !regexpBirthdate.test(date)) {
+    errors.birthdate = "La date de naissance n'est pas valide";
+  } else {
+    errors.birthdate = "";
+  }
+  if (errors.birthdate.length > 0) {
+    if(!birthdate.classList.contains("error")) {
+      birthdate.classList.add("error");
+    }
+    birthdate.setAttribute("data-error", "true");
+    birthdate.setAttribute("data-error-visible", "true");
+    const oldErrMsg = document.querySelector("#birthdate_error");
+    if (oldErrMsg) {
+      oldErrMsg.remove();
+    }
+    const newErrMsg = document.createElement("p");
+    newErrMsg.classList.add("error-message");
+    newErrMsg.setAttribute("id", "birthdate_error");
+    newErrMsg.innerHTML = errors.birthdate;
+    birthdate.parentNode.appendChild(newErrMsg);
+  } else {
+    if (birthdate.classList.contains("error")) {
+      birthdate.classList.remove("error");
+    }
+    birthdateField.setAttribute("data-error", "false");
+    birthdateField.setAttribute("data-error-visible", "false");
+    const newErrMsg = document.getElementById("birthdate_error");
     if (newErrMsg) {
       newErrMsg.remove();
     }
