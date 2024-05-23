@@ -1,4 +1,4 @@
-.bground {
+.inscription-section {
   display: none;
   position: fixed;
   z-index: 1;
@@ -10,7 +10,7 @@
   background-color: rgba(26, 39, 156, 0.4);
 }
 
-.content {
+.inscription-section_modal {
   margin: 5% auto;
   width: 100%;
   max-width: 500px;
@@ -36,6 +36,11 @@ label {
   display: inline-block;
   margin-bottom: 11px;
 }
+
+label span {
+  color: var(--main-color);
+}
+
 input {
   padding: 8px;
   border: 0.8px solid #ccc;
@@ -48,6 +53,7 @@ input {
   border-radius: 8px;
   font-size: 20px;
   height: 48px;
+  color: var(--third-color);
 }
 .formData[data-error]::after {
   content: attr(data-error);
@@ -137,7 +143,7 @@ input[data-error]::after {
   left: 21%;
   top: 19%;
 }
-.close {
+.inscription-section_modal--close {
   position: absolute;
   right: 15px;
   top: 15px;
@@ -147,8 +153,8 @@ input[data-error]::after {
   cursor: pointer;
   transform: scale(0.7);
 }
-.close:before,
-.close:after {
+.inscription-section_modal--close:before,
+.inscription-section_modal--close:after {
   position: absolute;
   left: 15px;
   content: " ";
@@ -156,10 +162,10 @@ input[data-error]::after {
   width: 3px;
   background-color: var(--secondary-color);
 }
-.close:before {
+.inscription-section_modal--close:before {
   transform: rotate(45deg);
 }
-.close:after {
+.inscription-section_modal--close:after {
   transform: rotate(-45deg);
 }
 .btn-submit,
@@ -243,6 +249,15 @@ input[data-error]::after {
 /* custom select end */
 .text-label {
   font-weight: normal;
+  font-size: 16px;
+}
+
+/* .error {
+  box-shadow: 1px 1px 5px 1px var(--main-color) inset;
+} */
+
+.attention, .error-message {
+  color: var(--main-color);
   font-size: 16px;
 }
 
