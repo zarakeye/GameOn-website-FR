@@ -43,7 +43,7 @@
   margin-top: 57px;
   padding: 0;
 }
-.btn-signup {
+.cta {
   outline: none;
   text-transform: capitalize;
   font-size: 1.3rem;
@@ -62,7 +62,7 @@
   padding: 0;
 }
 
-.hero-section > .btn-signup {
+.hero-section > .cta {
   display: none;
 }
 
@@ -81,7 +81,7 @@
   .hero-content::after {
     content: unset;
   }
-  .hero-content .btn-signup {
+  .hero-content .cta {
     display: none;
   }
   .hero-headline {
@@ -96,7 +96,7 @@
     border-radius: 10px;
     margin-top: 40px;
   }
-  .hero-section > .btn-signup {
+  .hero-section > .cta {
     display: block;
     margin: 32px auto 10px;
     padding: 12px 35px;

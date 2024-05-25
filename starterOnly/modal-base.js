@@ -4,7 +4,7 @@ const modalbg = document.querySelector(".inscription-section");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const iconNav = document.querySelector(".main-navbar .icon");
-const modalCloseBtn = document.querySelector(".inscription-section_modal--close");
+const modalCloseBtn = document.querySelector(".modal--close");
 
 const firstNameField = document.getElementById("first_name_field");
 const firstName = document.getElementById("first_name");

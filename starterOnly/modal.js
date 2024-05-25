@@ -1,41 +1,42 @@
 // DOM Elements
-const form = document.querySelector("form");
-const modalbg = document.querySelector(".inscription-section");
+const form = document.querySelector('form[name="reserve"]');
+const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const iconNav = document.querySelector(".main-navbar .icon");
-const modalCloseBtn = document.querySelector(".inscription-section_modal--close");
+const modalCloseBtn = document.querySelector(
+  ".modal--close"
+);
+const modalBody = document.querySelector(".modal-body");
 
-const firstNameField = document.getElementById("first_name_field");
-const firstName = document.getElementById("first_name");
-const lastNameField = document.getElementById("last_name_field");
-const lastName = document.getElementById("last_name");
-const emailField = document.getElementById("email_field");
+
+const firstName = document.getElementById("firstName");
+const lastName = document.getElementById("lastName");
 const email = document.getElementById("email");
-const birthdateField = document.getElementById("birthdate_field");
 const birthdate = document.getElementById("birthdate");
-const nbOfTournamentsField = document.getElementById("nb_of_tournaments_field");
-const nbOfTournaments = document.getElementById("nb_of_tournaments");
-const lastTournament = document.getElementById("last_tournament");
-const locations = document.querySelectorAll("#location_field input[name=location]");
+const nbOfTournaments = document.getElementById("nbPassedTournaments");
+const lastTournament = document.getElementById("lastTournament");
+const locations = document.querySelectorAll(
+  "input[name=locationLastTournament]"
+);
 const terms = document.getElementById("terms_of_use");
-
 
 // Regexp
 const regexpName = /^(?![-'\\d])[-'a-zA-ZÀ-ÿ]+$/;
-const regexpEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9]{2,4}$/;
-const regexpBirthdate = /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[012])\/(19[0-9]{2}|20[0-9]{2})$/;
-const regexpNbOfTornaments = /^[0-9]+$/
+const regexpEmail =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9]{2,4}$/;
+const regexpBirthdate =
+  /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[012])\/(19[0-9]{2}|20[0-9]{2})$/;
+const regexpNbOfTornaments = /^[0-9]+$/;
 
-// Errors object
 const errors = {
-  // firstName: [],
-  // lastName: [],
-  // email: [],
-  // birthdate: [],
-  // nbOfTournaments: [],
-  // location: [],
-  // terms: [],
+  firstName: [],
+  lastName: [],
+  email: [],
+  birthdate: [],
+  nbPassedTournaments: [],
+  locationLastTournament: [],
+  termsOfUse: []
 };
 
 function editNav() {
@@ -67,343 +68,151 @@ iconNav.addEventListener("click", (e) => {
 
 modalCloseBtn.addEventListener("click", closeModal);
 
-form.addEventListener('submit', function (e) {
-  event.preventDefault();
+const eventHandler = (e) => {
+  e.preventDefault();
+
+  const errors = {
+    firstName: [],
+    lastName: [],
+    email: [],
+    birthdate: [],
+    nbPassedTournaments: [],
+    locationLastTournament: [],
+    termsOfUse: []
+  };
 
   const formData = new FormData(form);
 
-  const errors = {
-    // firstName: [],
-    // lastName: [],
-    // email: [],
-    // birthdate: [],
-    // nbOfTournaments: [],
-    // location: [],
-    // termsOfUse: []
+  const firstName = formData.get('firstName').trim();
+  const lastName = formData.get('lastName').trim();
+  const email = formData.get('email').trim();
+  const birthdate = formData.get('birthdate').trim();
+  const nbPassedTournaments = parseInt(formData.get('nbPassedTournaments'), 10);
+  const locationLastTournament = formData.get('locationLastTournament');
+  const termsOfUse = formData.get('termsOfUse');
+  const eventsNotifications = formData.get('eventsNotifications');
+
+  console.log('formData : ', {
+    firstName,
+    lastName,
+    email,
+    birthdate,
+    nbPassedTournaments,
+    locationLastTournament,
+    termsOfUse,
+    eventsNotifications
+  });
+
+  // Rules for first name
+  if (firstName.length === 0) {
+    errors.firstName.push('Veuillez entrer votre prénom');
+  }
+  if (/^[-'\\d]+[-'a-zA-ZÀ-ÿ]+$/.test(firstName)) {
+    errors.firstName.push('Le prénom doit obligatoirement commencer par une lettre');
+  }
+  if (firstName.length < 2) {
+    errors.firstName.push('Le prénom doit contenir au moins 2 caractères');
+  }
+  if (!regexpName.test(firstName)) {
+    errors.firstName.push("Le prénom entré n'est pas valide")
   }
 
-  const firstNameValue = formData.get("first_name").trim();
-  const lastNameValue = formData.get("last_name").trim();
-  const emailValue = formData.get("email").trim();
-  const birthdateValue = formData.get("birthdate");
-  const nbOfTournamentsValue = parseInt(formData.get("nb_of_tournaments"), 10);
-  const lastTournamentValue = formData.get("location");
-  const termsOfUseValue = formData.get("terms_of_use");
-
-  console.log('formData', {
-    firstNameValue,
-    lastNameValue,
-    emailValue,
-    birthdateValue,
-    nbOfTournamentsValue,
-    lastTournamentValue,
-    termsOfUseValue
-  })
-
-  if (firstNameValue.length === 0) {
-    e.preventDefault();
-    errors.firstName = "";
-    errors.firstName ="Veuillez entrer votre prénom";
-
-    const oldErrMsg = document.querySelector("#first_name_error");
-    if (oldErrMsg) {
-      oldErrMsg.remove();
-    }
-    const newErrMsg = document.createElement("p");
-    newErrMsg.classList.add("error-message");
-    newErrMsg.setAttribute("id", "first_name_error");
-    newErrMsg.innerHTML = "";
-    newErrMsg.innerHTML = errors.firstName;
-    document.getElementById("first_name").parentNode.appendChild(newErrMsg);
+  // Rules for last name
+  if (lastName.length === 0) {
+    errors.lastName.push("Veuillez entrer votre nom");
   }
-  if (firstNameValue.length > 0 && firstNameValue.length < 2) {
-    e.preventDefault();
-    errors.firstName = "Le prénom doit contenir au moins 2 caractères";
+  if (/^[-'\\d]+[-'a-zA-ZÀ-ÿ]+$/.test(lastName)) {
+    errors.lastName.push('Le nom doit obligatoirement commencer par une lettre');
   }
-  if (firstNameValue.length >=  2 && !regexpName.test(firstNameValue)) {
-    e.preventDefault();
-    errors.firstName = "Le prénom n'est pas valide";
+  if (lastName.length < 2) {
+    errors.lastName.push("Le nom doit contenir au moins 2 caractères");
+  }
+  if (!regexpName.test(lastName)) {
+    errors.lastName.push("Le nom entré n'est pas valide");
   }
 
-  if (lastNameValue.length === 0) {
-    e.preventDefault();
-    errors.lastName ="Veuillez entrer votre nom";
-
-    const oldErrMsg = document.querySelector("#last_name_error");
-    if (oldErrMsg) {
-      oldErrMsg.remove();
-    }
-    const newErrMsg = document.createElement("p");
-    newErrMsg.classList.add("error-message");
-    newErrMsg.setAttribute("id", "last_name_error");
-    newErrMsg.innerHTML = "";
-    newErrMsg.innerHTML = errors.lastName;
-    document.getElementById("last_name").parentNode.appendChild(newErrMsg);
+  // Rules for email
+  if (email.length === 0) {
+    errors.email.push("Veuillez entrer votre email");
   }
-  if (lastNameValue.length > 0 && lastNameValue.length < 2) {
-    e.preventDefault();
-    errors.lastName = "Le nom doit contenir au moins 2 caractères";
-  }
-  if (lastNameValue.length >=  2 && !regexpName.test(lastName)) {
-    e.preventDefault();
-    errors.lastName = "Le nom n'est pas valide";
+  if (!regexpEmail.test(email)) {
+    errors.email.push("L'email entré n'est pas valide");
   }
 
-  if (emailValue.length === 0) {
-    e.preventDefault();
-    errors.email = "Veuillez entrer votre email";
-
-    const oldErrMsg = document.querySelector("#email_error");
-    if (oldErrMsg) {
-      oldErrMsg.remove();
-    }
-    const newErrMsg = document.createElement("p");
-    newErrMsg.classList.add("error-message");
-    newErrMsg.setAttribute("id", "email_error");
-    newErrMsg.innerHTML = "";
-    newErrMsg.innerHTML = errors.email;
-    document.getElementById("email").parentNode.appendChild(newErrMsg);
-  } else if (!regexpEmail.test(emailValue)) {
-    e.preventDefault();
-    errors.email ="L'email n'est pas valide";
+  // Rules for birth date
+  if (birthdate !== 0 && !regexpBirthdate.test(birthdate)) {
+    errors.birthdate.push("La date entrée n'est pas valide");
   }
 
-  if (birthdateValue.length === 0) {
-    e.preventDefault();
-    errors.birthdate = "Veuillez renseigner votre date de naissance";
-
-
-    const oldErrMsg = document.querySelector("#birthdate_error");
-    if (oldErrMsg) {
-      oldErrMsg.remove();
-    }
-    const newErrMsg = document.createElement("p");
-    newErrMsg.classList.add("error-message");
-    newErrMsg.setAttribute("id", "birthdate_error");
-    newErrMsg.innerHTML = "";
-    newErrMsg.innerHTML = errors.birthdate;
-    document.getElementById("birthdate").parentNode.appendChild(newErrMsg);
-  } else if (!regexpBirthdate.test(birthdateValue)) {
-    e.preventDefault();
-    errors.birthdate = "La date de naissance n'est pas valide";
+  // Rules for number of passed tournaments
+  if (nbPassedTournaments.length === 0) {
+    errors.nbPassedTournaments.push("Veuiller renseigner le nombre de tournois auxquels vous avez participé");
+  }
+  if (!regexpNbOfTornaments.test(nbOfTournaments)) {
+    errors.nbPassedTournaments.push("Le nombre entré n'est pas valide");
   }
 
-  if (nbOfTournamentsValue.length === 0) {
-    e.preventDefault();
-    errors.nbOfTournaments = "Veuillez renseigner le nombre de tournois auxquels vous avez participer";
-
-    const oldErrMsg = document.querySelector("#nb_of_tournaments_error");
-    if (oldErrMsg) {
-      oldErrMsg.remove();
-    }
-    const newErrMsg = document.createElement("p");
-    newErrMsg.classList.add("error-message");
-    newErrMsg.setAttribute("id", "nb_of_tournaments_error");
-    newErrMsg.innerHTML = "";
-    newErrMsg.innerHTML = errors.nbOfTournaments;
-    document.getElementById("nb_of_tournaments").parentNode.appendChild(newErrMsg);
-  } else if ((nbOfTournamentsValue < 0 || nbOfTournamentsValue > 0) && !regexpNbOfTornaments.test(nbOfTournamentsValue)) {
-    e.preventDefault();
-    errors.nbOfTournaments ="Le nombre de tournois n'est pas valide";
+  // Rule for the location of the last tournament
+  if (locationLastTournament !== '') {
+    errors.locationLastTournament.push("Veuillez sélectionner la ville dans laquelle s'est déroulé votre dernier tournoi");
   }
 
-  const tournaments = document.getElementsByName("location");
-
-  for (let i = 0; i < tournaments.length; i++) {
-    if (tournaments[i].checked) {
-      break;
-    } else {
-      e.preventDefault();
-      errors.location = "Veuillez indiquer le lieu de votre dernier tournoi";
-    }
-  }
-
-  if (termsOfUseValue !== "on") {
-    e.preventDefault();
-    errors.termsOfUse = "Veuillez accepter les conditions d'utilisation";
+  // Rule for terms of use
+  if (termsOfUse !== 'on') {
+    errors.termsOfUse.push("Veuillez accepter les conditions d'utilisation pour pouvoir valider votre inscription")
   }
 
   console.log('errors', errors);
-});
 
-firstName.addEventListener("input", (e) => {
-  e.preventDefault();
-  // if (firstName.classList.contains("error")) {
-  //   firstName.classList.remove("error");
-  // }
-  if (e.target.value.trim().length === 0) {
-    errors.firstName = "Veuillez entrer votre pr&eacute;nom";
-  } else if (e.target.value.trim().length > 0 && e.target.value.trim().length < 2) {
-    errors.firstName = "Le pr&eacute;nom doit contenir au moins 2 caractères";
-  } else if (e.target.value.trim().length >= 2 && !regexpName.test(e.target.value.trim())) {
-    errors.firstName = "Le pr&eacute;nom n'est pas valide";
-  } else {
-    errors.firstName = "";
+  showErrors(errors);
+
+  if (e.type === 'submit') {
+    return validate(errors);
   }
+};
 
-  if (errors.firstName.length > 0) {
-    if(!firstName.classList.contains("error")) { firstName.classList.add("error"); }
-    firstName.setAttribute("data-error", "true");
-    firstName.setAttribute("data-error-visible", "true");
+form.addEventListener('input', eventHandler);
+form.addEventListener('submit', eventHandler);
 
-    const oldErrMsg = document.querySelector("#first_name_error");
-    if (oldErrMsg) {
-      oldErrMsg.remove();
-    }
-    const newErrMsg = document.createElement("p");
-    newErrMsg.classList.add("error-message");
-    newErrMsg.setAttribute("id", "first_name_error");
-    newErrMsg.innerHTML = "";
-    firstName.parentNode.appendChild(newErrMsg);
-    newErrMsg.innerHTML = errors.firstName;
-  } else {
-    if (firstName.classList.contains("error")) {
-      firstName.classList.remove("error");
-    }
-    firstNameField.setAttribute("data-error", "false");
-    firstNameField.setAttribute("data-error-visible", "false");
-    const newErrMsg = document.getElementById("first_name_error");
-    if (newErrMsg) {
-      newErrMsg.remove();
-    }
-  }
-});
+function showErrors(errors) {
+  const errorMessages = document.querySelectorAll(".error-message");
+  errorMessages.forEach((errorMessage) => {
+    errorMessage.remove();
+  })
 
-lastName.addEventListener("input", (e) => {
-  e.preventDefault();
-  if (lastName.classList.contains("error")) {
-    lastName.classList.remove("error");
-  }
-  if (e.target.value.trim().length === 0) {
-    errors.lastName = "Veuillez entrer votre nom";
-  } else if (e.target.value.trim().length > 0 && e.target.value.trim().length < 2) {
-    errors.lastName = "Le nom doit contenir au moins 2 caractères";
-  } else if (e.target.value.trim().length >= 2 && !regexpName.test(e.target.value.trim())) {
-    errors.lastName = "Le nom n'est pas valide";
-  } else {
-    errors.lastName = "";
-  }
+  const errorsKeys = Object.keys(errors);
 
-  if (errors.lastName.length > 0) {
-    if(!lastName.classList.contains("error")) { lastName.classList.add("error"); }
-    lastName.setAttribute("data-error", "true");
-    lastName.setAttribute("data-error-visible", "true");
+  errorsKeys.forEach((key) => {
+    const inputErrors = errors[key];
+    const input = document.querySelector(`[name="${key}"]`);
+    if (inputErrors.length > 0) {
+      
+      const errorMessage = document.createElement("p");
+      errorMessage.classList.add('error-message');
+      errorMessage.setAttribute('data-error', 'true');
+      errorMessage.setAttribute('data-error-visible', 'true');
+      errorMessage.innerHTML = "";
+      errorMessage.innerHTML = inputErrors[0];
+      input.insertAdjacentElement("afterend", errorMessage);
+    }
+  });
+}
 
-    const oldErrMsg = document.querySelector("#last_name_error");
-    if (oldErrMsg) {
-      oldErrMsg.remove();
-    }
+function validate(errors) {
+  errors.forEach((error) => {
+    if (error.length !== 0) return false;
+  })
+  form.remove();
+  const thanksMessage = document.createElement("p");
+  thanksMessage.innerHTML = "Merci pour votre inscription"
 
-    const newErrMsg = document.createElement("p");
-    newErrMsg.classList.add("error-message");
-    newErrMsg.setAttribute("id", "last_name_error");
-    newErrMsg.innerHTML = errors.lastName;
-    lastName.parentNode.appendChild(newErrMsg);
-  } else {
-    if (lastName.classList.contains("error")) {
-      lastName.classList.remove("error");
-    }
-    lastNameField.setAttribute("data-error", "false");
-    lastNameField.setAttribute("data-error-visible", "false");
-    const newErrMsg = document.getElementById("last_name_error");
-    if (newErrMsg) {
-      newErrMsg.remove();
-    }
-  }
-});
+  const btnClose = document.createElement('button');
+  btnClose.classList.add('cta');
+  btnClose.setAttribute('type', 'button');
+  btnClose.setAttribute('value', 'fermer');
 
-email.addEventListener("input", (e) => {
-  e.preventDefault();
-  if (email.classList.contains("error")) {
-    email.classList.remove("error");
-  }
-  if (e.target.value.trim().length === 0) {
-    errors.email = "Veuillez entrer votre email";
-  } else if (e.target.value.trim().length > 0 && !regexpEmail.test(e.target.value.trim())) {
-    errors.email = "L'email n'est pas valide";
-  } else {
-    errors.email = "";
-  }
+  modalBody.appendChild(thanksMessage);
+  modalBody.appendChild(btnClose);
 
-  if (errors.email.length > 0) {
-    if(!email.classList.contains("error")) {
-      email.classList.add("error");
-    }
-    email.setAttribute("data-error", "true");
-    email.setAttribute("data-error-visible", "true");
-
-    const oldErrMsg = document.querySelector("#email_error");
-    if (oldErrMsg) {
-      oldErrMsg.remove();
-    }
-    const newErrMsg = document.createElement("p");
-    newErrMsg.classList.add("error-message");
-    newErrMsg.setAttribute("id", "email_error");
-    newErrMsg.innerHTML = errors.email;
-    email.parentNode.appendChild(newErrMsg);
-  } else {
-    if (email.classList.contains("error")) {
-      email.classList.remove("error");
-    }
-    emailField.setAttribute("data-error", "false");
-    emailField.setAttribute("data-error-visible", "false");
-    const newErrMsg = document.getElementById("email_error");
-    if (newErrMsg) {
-      newErrMsg.remove();
-    }
-  }
-});
-
-birthdate.addEventListener("input", (e) => {
-  e.preventDefault();
-
-  const birthdateFormated = e.target.valueAsDate;
-  const day = birthdateFormated.getDate();
-  const month = birthdateFormated.getMonth() + 1;
-  const year = birthdateFormated.getFullYear();
-  const date = `${day}/${month}/${year}`;
-
-  if (!regexpBirthdate.test(date)) {
-    errors.birthdate = "La date de naissance n'est pas valide";
-  } else {
-    errors.birthdate = "";
-  }
-
-  if (birthdate.classList.contains("error")) {
-    birthdate.classList.remove("error");
-  }
-  if (date.length === 0) {
-    errors.birthdate = "Veuillez renseigner votre date de naissance";
-  } else if (date.length !== 0 && !regexpBirthdate.test(date)) {
-    errors.birthdate = "La date de naissance n'est pas valide";
-  } else {
-    errors.birthdate = "";
-  }
-  if (errors.birthdate.length > 0) {
-    if(!birthdate.classList.contains("error")) {
-      birthdate.classList.add("error");
-    }
-    birthdate.setAttribute("data-error", "true");
-    birthdate.setAttribute("data-error-visible", "true");
-    const oldErrMsg = document.querySelector("#birthdate_error");
-    if (oldErrMsg) {
-      oldErrMsg.remove();
-    }
-    const newErrMsg = document.createElement("p");
-    newErrMsg.classList.add("error-message");
-    newErrMsg.setAttribute("id", "birthdate_error");
-    newErrMsg.innerHTML = errors.birthdate;
-    birthdate.parentNode.appendChild(newErrMsg);
-  } else {
-    if (birthdate.classList.contains("error")) {
-      birthdate.classList.remove("error");
-    }
-    birthdateField.setAttribute("data-error", "false");
-    birthdateField.setAttribute("data-error-visible", "false");
-    const newErrMsg = document.getElementById("birthdate_error");
-    if (newErrMsg) {
-      newErrMsg.remove();
-    }
-  }
-});
-
+  btnClose.addEventListener('click', closeModal);
+}

@@ -1,4 +1,4 @@
-.inscription-section {
+.bground {
   display: none;
   position: fixed;
   z-index: 1;
@@ -10,7 +10,7 @@
   background-color: rgba(26, 39, 156, 0.4);
 }
 
-.inscription-section_modal {
+.modal {
   margin: 5% auto;
   width: 100%;
   max-width: 500px;
@@ -143,7 +143,7 @@ input[data-error]::after {
   left: 21%;
   top: 19%;
 }
-.inscription-section_modal--close {
+.modal--close {
   position: absolute;
   right: 15px;
   top: 15px;
@@ -153,8 +153,8 @@ input[data-error]::after {
   cursor: pointer;
   transform: scale(0.7);
 }
-.inscription-section_modal--close:before,
-.inscription-section_modal--close:after {
+.modal--close:before,
+.modal--close:after {
   position: absolute;
   left: 15px;
   content: " ";
@@ -162,14 +162,13 @@ input[data-error]::after {
   width: 3px;
   background-color: var(--secondary-color);
 }
-.inscription-section_modal--close:before {
+.modal--close:before {
   transform: rotate(45deg);
 }
-.inscription-section_modal--close:after {
+.modal--close:after {
   transform: rotate(-45deg);
 }
-.btn-submit,
-.btn-signup {
+.cta {
   background: var(--main-color-1);
   display: block;
   margin: 0 auto;
@@ -256,7 +255,8 @@ input[data-error]::after {
   box-shadow: 1px 1px 5px 1px var(--main-color) inset;
 } */
 
-.attention, .error-message {
+.attention,
+.error-message {
   color: var(--main-color);
   font-size: 16px;
 }
@@ -270,4 +270,3 @@ input[data-error]::after {
     opacity: 1;
   }
 }
-
