@@ -14,12 +14,12 @@ const firstName = document.getElementById("firstName");
 const lastName = document.getElementById("lastName");
 const email = document.getElementById("email");
 const birthdate = document.getElementById("birthdate");
-const nbOfTournaments = document.getElementById("nbPassedTournaments");
-const lastTournament = document.getElementById("lastTournament");
-const locations = document.querySelectorAll(
-  "input[name=locationLastTournament]"
-);
-const terms = document.getElementById("terms_of_use");
+const nbPassedTournaments = document.getElementById("nbPassedTournaments");
+const locationLastTournament = document.getElementById("locationLastTournament");
+// const locations = document.querySelectorAll(
+//   "input[name=locationLastTournament]"
+// );
+const termsOfUse = document.getElementById("termsOfUse");
 
 // Regexp
 const regexpName = /^(?![-'\\d])[-'a-zA-ZÀ-ÿ]+$/;
@@ -27,17 +27,7 @@ const regexpEmail =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9]{2,4}$/;
 const regexpBirthdate =
   /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[012])\/(19[0-9]{2}|20[0-9]{2})$/;
-const regexpNbOfTornaments = /^[0-9]+$/;
-
-const errors = {
-  firstName: [],
-  lastName: [],
-  email: [],
-  birthdate: [],
-  nbPassedTournaments: [],
-  locationLastTournament: [],
-  termsOfUse: []
-};
+const regexpNbPassedTournaments = /^[0-9]+$/;
 
 function editNav() {
   var header = document.getElementById("myTopnav");
@@ -104,7 +94,7 @@ const eventHandler = (e) => {
   });
 
   // Rules for first name
-  if (firstName.length === 0) {
+  if (e.type === 'submit' && firstName.length === 0) {
     errors.firstName.push('Veuillez entrer votre prénom');
   }
   if (/^[-'\\d]+[-'a-zA-ZÀ-ÿ]+$/.test(firstName)) {
@@ -118,7 +108,7 @@ const eventHandler = (e) => {
   }
 
   // Rules for last name
-  if (lastName.length === 0) {
+  if (e.type === 'submit' && lastName.length === 0) {
     errors.lastName.push("Veuillez entrer votre nom");
   }
   if (/^[-'\\d]+[-'a-zA-ZÀ-ÿ]+$/.test(lastName)) {
@@ -132,28 +122,34 @@ const eventHandler = (e) => {
   }
 
   // Rules for email
-  if (email.length === 0) {
+  if (e.type === 'submit' && email.length === 0) {
     errors.email.push("Veuillez entrer votre email");
   }
   if (!regexpEmail.test(email)) {
     errors.email.push("L'email entré n'est pas valide");
   }
 
+  const date = new Date(birthdate);
+  const month = date.getUTCMonth() + 1;
+  const day = date.getUTCDate();
+  const year = date.getUTCFullYear();
+  const formattedBirthdate = `${day}/${month}/${year}`;
+  console.log('formattedBirthdate : ', formattedBirthdate);
   // Rules for birth date
-  if (birthdate !== 0 && !regexpBirthdate.test(birthdate)) {
+  if (formattedBirthdate !== 0 && !regexpBirthdate.test(formattedBirthdate)) {
     errors.birthdate.push("La date entrée n'est pas valide");
   }
 
   // Rules for number of passed tournaments
-  if (nbPassedTournaments.length === 0) {
+  if (e.type === 'submit' && nbPassedTournaments.length === 0) {
     errors.nbPassedTournaments.push("Veuiller renseigner le nombre de tournois auxquels vous avez participé");
   }
-  if (!regexpNbOfTornaments.test(nbOfTournaments)) {
+  if (!regexpNbPassedTournaments.test(nbPassedTournaments)) {
     errors.nbPassedTournaments.push("Le nombre entré n'est pas valide");
   }
 
   // Rule for the location of the last tournament
-  if (locationLastTournament !== '') {
+  if (e.type === 'submit' && locationLastTournament === null) {
     errors.locationLastTournament.push("Veuillez sélectionner la ville dans laquelle s'est déroulé votre dernier tournoi");
   }
 
@@ -166,12 +162,39 @@ const eventHandler = (e) => {
 
   showErrors(errors);
 
-  if (e.type === 'submit') {
-    return validate(errors);
+  if (e.type === 'submit' && validate(errors)) {
+    console.log('validate : ', validate(errors));
+    modalBody.innerHTML = '';
+
+    const thanksMessage = document.createElement("p");
+    thanksMessage.innerHTML = "Merci pour votre inscription"
+
+    const btnClose = document.createElement('button');
+    btnClose.classList.add('cta');
+    btnClose.setAttribute('type', 'button');
+    btnClose.setAttribute('value', 'fermer');
+    btnClose.style.position = 'absolute';
+    btnClose.style.bottom = '18px';
+    btnClose.innerHTML = 'Fermer';
+
+    modalBody.style.position = 'relative';
+    modalBody.style.display = 'flex';
+    modalBody.style.flexDirection = 'column';
+    modalBody.style.alignItems = 'center';
+    modalBody.style.justifyContent = 'center';
+    modalBody.style.width = '536px';
+    modalBody.style.height = '850px';
+
+    modalBody.appendChild(thanksMessage);
+    modalBody.appendChild(btnClose);
+
+    btnClose.addEventListener('click', closeModal);
   }
 };
 
-form.addEventListener('input', eventHandler);
+
+
+form.addEventListener('change', eventHandler);
 form.addEventListener('submit', eventHandler);
 
 function showErrors(errors) {
@@ -198,21 +221,13 @@ function showErrors(errors) {
   });
 }
 
+// Values are valid if all errors are empty
 function validate(errors) {
-  errors.forEach((error) => {
-    if (error.length !== 0) return false;
-  })
-  form.remove();
-  const thanksMessage = document.createElement("p");
-  thanksMessage.innerHTML = "Merci pour votre inscription"
-
-  const btnClose = document.createElement('button');
-  btnClose.classList.add('cta');
-  btnClose.setAttribute('type', 'button');
-  btnClose.setAttribute('value', 'fermer');
-
-  modalBody.appendChild(thanksMessage);
-  modalBody.appendChild(btnClose);
-
-  btnClose.addEventListener('click', closeModal);
+  for (const error in errors) {
+    if (errors[error].length > 0) {
+      return false;
+    }
+  }
+  return true;
 }
+
