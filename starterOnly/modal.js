@@ -15,11 +15,13 @@ const lastName = document.getElementById("lastName");
 const email = document.getElementById("email");
 const birthdate = document.getElementById("birthdate");
 const nbPassedTournaments = document.getElementById("nbPassedTournaments");
-const locationLastTournament = document.getElementById("locationLastTournament");
-// const locations = document.querySelectorAll(
-//   "input[name=locationLastTournament]"
-// );
+const locationLastTournament = document.getElementsByName("locationLastTournament");
+const tournaments = document.getElementsByName("locationLastTournament");
+const locations = document.getElementById("locations");
 const termsOfUse = document.getElementById("termsOfUse");
+
+locations.style.display = "grid";
+locations.style.gridTemplateColumns = "1fr 1fr 1fr";
 
 // Regexp
 const regexpName = /^(?![-'\\d])[-'a-zA-ZÀ-ÿ]+$/;
@@ -94,13 +96,13 @@ const eventHandler = (e) => {
   });
 
   // Rules for first name
-  if (e.type === 'submit' && firstName.length === 0) {
+  if (/*e.type === 'submit' && */firstName.length === 0) {
     errors.firstName.push('Veuillez entrer votre prénom');
   }
-  if (/^[-'\\d]+[-'a-zA-ZÀ-ÿ]+$/.test(firstName)) {
+  if ((e.type === 'input' || e.type === 'change') && /^[-'\\d]+[-'a-zA-ZÀ-ÿ]*$/.test(firstName)) {
     errors.firstName.push('Le prénom doit obligatoirement commencer par une lettre');
   }
-  if (firstName.length < 2) {
+  if ((e.type === 'input' || e.type === 'change') && firstName.length < 2) {
     errors.firstName.push('Le prénom doit contenir au moins 2 caractères');
   }
   if (!regexpName.test(firstName)) {
@@ -111,10 +113,10 @@ const eventHandler = (e) => {
   if (e.type === 'submit' && lastName.length === 0) {
     errors.lastName.push("Veuillez entrer votre nom");
   }
-  if (/^[-'\\d]+[-'a-zA-ZÀ-ÿ]+$/.test(lastName)) {
+  if ((e.type === 'input' || e.type === 'change') && /^[-'\\d]+[-'a-zA-ZÀ-ÿ]+$/.test(lastName)) {
     errors.lastName.push('Le nom doit obligatoirement commencer par une lettre');
   }
-  if (lastName.length < 2) {
+  if ((e.type === 'input' || e.type === 'change') && lastName.length < 2) {
     errors.lastName.push("Le nom doit contenir au moins 2 caractères");
   }
   if (!regexpName.test(lastName)) {
@@ -122,10 +124,10 @@ const eventHandler = (e) => {
   }
 
   // Rules for email
-  if (e.type === 'submit' && email.length === 0) {
-    errors.email.push("Veuillez entrer votre email");
-  }
-  if (!regexpEmail.test(email)) {
+  // if (e.type === 'submit' && email.length === 0) {
+  //   errors.email.push("Veuillez entrer votre email");
+  // }
+  if (email.length > 0 && !regexpEmail.test(email)) {
     errors.email.push("L'email entré n'est pas valide");
   }
 
@@ -136,31 +138,39 @@ const eventHandler = (e) => {
   const formattedBirthdate = `${day}/${month}/${year}`;
   console.log('formattedBirthdate : ', formattedBirthdate);
   // Rules for birth date
-  if (formattedBirthdate !== 0 && !regexpBirthdate.test(formattedBirthdate)) {
+  if (formattedBirthdate !== `NaN/NaN/NaN` && !regexpBirthdate.test(formattedBirthdate)) {
     errors.birthdate.push("La date entrée n'est pas valide");
   }
 
   // Rules for number of passed tournaments
-  if (e.type === 'submit' && nbPassedTournaments.length === 0) {
-    errors.nbPassedTournaments.push("Veuiller renseigner le nombre de tournois auxquels vous avez participé");
-  }
-  if (!regexpNbPassedTournaments.test(nbPassedTournaments)) {
+  // if (e.type === 'submit' && nbPassedTournaments.length === 0) {
+  //   errors.nbPassedTournaments.push("Veuiller renseigner le nombre de tournois auxquels vous avez participé");
+  // }
+  if (nbPassedTournaments > 0 && !regexpNbPassedTournaments.test(nbPassedTournaments)) {
     errors.nbPassedTournaments.push("Le nombre entré n'est pas valide");
   }
 
   // Rule for the location of the last tournament
-  if (e.type === 'submit' && locationLastTournament === null) {
+  // if (/*e.type === 'submit' && */locationLastTournament === null) {
+  
+  //   e.preventDefault();
+  //   errors.locationLastTournament.push("Veuillez sélectionner la ville dans laquelle s'est déroulé votre dernier tournoi");
+  // }
+  
+  
+
+  if (locationLastTournament === null) {
     errors.locationLastTournament.push("Veuillez sélectionner la ville dans laquelle s'est déroulé votre dernier tournoi");
   }
 
   // Rule for terms of use
   if (termsOfUse !== 'on') {
-    errors.termsOfUse.push("Veuillez accepter les conditions d'utilisation pour pouvoir valider votre inscription")
+    errors.termsOfUse.push("Veuillez accepter les conditions d'utilisation pour pouvoir valider votre inscription, ou cliquer sur la croix en haut a droite pour abandonner l'inscription");
   }
 
   console.log('errors', errors);
 
-  showErrors(errors);
+  showErrors(errors);  
 
   if (e.type === 'submit' && validate(errors)) {
     console.log('validate : ', validate(errors));
@@ -192,10 +202,25 @@ const eventHandler = (e) => {
   }
 };
 
+firstName.addEventListener('input', eventHandler);
+lastName.addEventListener('input', eventHandler);
+email.addEventListener('input', eventHandler);
+birthdate.addEventListener('input', eventHandler);
+nbPassedTournaments.addEventListener('input', eventHandler);
 
-
-form.addEventListener('change', eventHandler);
+termsOfUse.addEventListener('input', eventHandler);
 form.addEventListener('submit', eventHandler);
+
+console.log('formData : ', {
+  firstName,
+  lastName,
+  email,
+  birthdate,
+  nbPassedTournaments,
+  locationLastTournament,
+  termsOfUse,
+  eventsNotifications
+});
 
 function showErrors(errors) {
   const errorMessages = document.querySelectorAll(".error-message");
@@ -208,17 +233,49 @@ function showErrors(errors) {
   errorsKeys.forEach((key) => {
     const inputErrors = errors[key];
     const input = document.querySelector(`[name="${key}"]`);
+    // document.querySelector(`[name="${key}"] ~ .error-message`).remove();
+    const firstErrorOfKey = inputErrors[0];
     if (inputErrors.length > 0) {
-      
+      input.classList.add('error');
       const errorMessage = document.createElement("p");
       errorMessage.classList.add('error-message');
       errorMessage.setAttribute('data-error', 'true');
       errorMessage.setAttribute('data-error-visible', 'true');
       errorMessage.innerHTML = "";
-      errorMessage.innerHTML = inputErrors[0];
-      input.insertAdjacentElement("afterend", errorMessage);
+      errorMessage.innerHTML = firstErrorOfKey;
+      if (key === 'locationLastTournament') {
+        document.getElementById('lastTournament').insertAdjacentElement("afterend", errorMessage);
+      } else {
+        input.insertAdjacentElement("afterend", errorMessage);
+      }
+    } else {
+      input.classList.remove('error');
     }
+    // showInputErrors(errors, key);
   });
+}
+
+function showInputErrors(errors, key) {
+  const errorMessages = document.querySelectorAll(".error-message");
+  errorMessages.forEach((errorMessage) => {
+    errorMessage.remove();
+  });
+
+  const input = document.querySelector(`[name="${key}"]`);
+  const inputErrors = errors[key];
+  const firstErrorOfKey = inputErrors[0];
+  if (inputErrors.length > 0) {
+    input.classList.add('error');
+    const errorMessage = document.createElement("p");
+    errorMessage.classList.add('error-message');
+    errorMessage.setAttribute('data-error', 'true');
+    errorMessage.setAttribute('data-error-visible', 'true');
+    errorMessage.innerHTML = "";
+    errorMessage.innerHTML = firstErrorOfKey;
+    input.insertAdjacentElement("afterend", errorMessage);
+  } else {
+    input.classList.remove('error');
+  }
 }
 
 // Values are valid if all errors are empty
