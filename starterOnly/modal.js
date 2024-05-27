@@ -162,6 +162,7 @@ const eventHandler = (e) => {
   if (locationLastTournament === null) {
     errors.locationLastTournament.push("Veuillez sélectionner la ville dans laquelle s'est déroulé votre dernier tournoi");
   }
+  
 
   // Rule for terms of use
   if (termsOfUse !== 'on') {
@@ -207,7 +208,7 @@ lastName.addEventListener('input', eventHandler);
 email.addEventListener('input', eventHandler);
 birthdate.addEventListener('input', eventHandler);
 nbPassedTournaments.addEventListener('input', eventHandler);
-
+locations.addEventListener('input', eventHandler);
 termsOfUse.addEventListener('input', eventHandler);
 form.addEventListener('submit', eventHandler);
 
