@@ -47,6 +47,10 @@ input {
   outline: none;
 }
 
+#firstname, #lastname {
+  text-transform: capitalize;
+} 
+
 .text-control {
   margin: 0;
   padding: 8px;
