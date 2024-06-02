@@ -1,17 +1,15 @@
 .bground {
   display: none;
-  position: fixed;
+  position: absolute;
+  top: 85px;
   z-index: 4;
   left: 0;
-  top: 0;
+  /* top: 0; */
   height: 100%;
   width: 100%;
-  /* overflow: auto; */
-  background-color: rgba(26, 39, 156, 0.4);
 }
 
 .modal {
-  /* margin: 5% auto; */
   width: 100%;
   max-width: 500px;
   animation-name: modalopen;
@@ -22,6 +20,7 @@
   position: relative;
   color: var(--secondary-color);
   padding-top: 10px;
+  height: calc(100vh - 85px);
 }
 
 .modal-body {
@@ -58,10 +57,11 @@ input[type="number"] {
 .text-control {
   margin: 0;
   padding: 8px;
+  margin-bottom: 11px;
   width: 100%;
   border-radius: 8px;
   font-size: 20px;
-  height: 65px;
+  height: 50px;
   color: var(--third-color);
 }
 .formData {
@@ -176,8 +176,6 @@ input[type="number"] {
 }
 .modal-body .cta {
   display: block;
-  /* width: 182px;
-  font-size: 14px; */
 }
 
 .modal .modal {
@@ -190,9 +188,6 @@ input[type="number"] {
   background: var(--third-color-1);
   width: 100%;
   height: 100%;
-  /* opacity: 0; */
-  /* visibility: hidden;
-  transition: all 0.3s ease; */
 }
 .modal .modal .cta {
   position: absolute;
@@ -211,28 +206,44 @@ input[type="number"] {
 
 .attention,
 .error-message {
+  display: block;
   color: var(--main-color);
   font-size: 10px;
-  /* padding-top: 6px; */
-  /* padding-bottom: 13px; */
+  padding: 15px 8%;
+}
+
+#lastTournament {
+  padding-top: 11px;
+  margin-bottom: 11px;
 }
 #lastTournament ~ .error-message {
   padding-top: 0;
 }
 
-@media screen and (max-width: 540px) {
+@media (width > 540px) {
   .bground {
-    background-color: initial;
+    position: fixed;
+    top: 0;
+    background-color: rgba(26, 39, 156, 0.4);
   }
+
   .modal {
     position: absolute;
-    margin: 0;
-    top: 85px;
-  } 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: unset;
+  }
+  .modal .modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
   .text-control {
     height: 50px;
   }
-}
+};
 
 @keyframes modalopen {
   from {

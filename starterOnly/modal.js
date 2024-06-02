@@ -183,15 +183,15 @@ const eventHandler = (e) => {
   console.log('errors', errors);
 
   if (e.type === 'submit') {
+    // Shows all errors at submit
     showErrors(errors);
   } else {
+    // Shows the current error of the focused input
     showInputErrors(errors, e.target.name);
   }
   
 
   if (e.type === 'submit' && validate(errors)) {
-    console.log('validate : ', validate(errors));
-    // modalBody.innerHTML = '';
     let thanksMessageModal = document.createElement("div");
     thanksMessageModal.classList.add("modal");
     let thanksMessageModalContent = `
@@ -203,34 +203,13 @@ const eventHandler = (e) => {
     `;
 
     thanksMessageModal.innerHTML = thanksMessageModalContent;
-    // const thanksMessage = document.createElement("p");
-    // thanksMessage.innerHTML = "Merci pour votre inscription"
-
-    // const btnClose = document.createElement('button');
-    // btnClose.classList.add('cta');
-    // btnClose.setAttribute('type', 'button');
-    // btnClose.setAttribute('value', 'fermer');
-    // btnClose.style.position = 'absolute';
-    // btnClose.style.bottom = '18px';
-    // btnClose.innerHTML = 'Fermer';
-
-    // modalBody.style.position = 'relative';
-    // modalBody.style.display = 'flex';
-    // modalBody.style.flexDirection = 'column';
-    // modalBody.style.alignItems = 'center';
-    // modalBody.style.justifyContent = 'center';
-    // modalBody.style.width = '536px';
-    // modalBody.style.height = '850px';
-
     modal.appendChild(thanksMessageModal);
 
-    
-  const thanksXBtnClose = document.getElementById("thanksXBtnClose");
-  const thanksBtnClose = document.getElementById("thanksBtnClose");
-
-      
-  thanksBtnClose.addEventListener('click', closeModal);
-  thanksXBtnClose.addEventListener('click', closeModal);
+    const thanksXBtnClose = document.getElementById("thanksXBtnClose");
+    const thanksBtnClose = document.getElementById("thanksBtnClose");
+        
+    thanksBtnClose.addEventListener('click', closeModal);
+    thanksXBtnClose.addEventListener('click', closeModal);
   }
 };
 
@@ -244,14 +223,6 @@ locations.addEventListener('input', eventHandler);
 termsOfUse.addEventListener('input', eventHandler);
 form.addEventListener('submit', eventHandler);
 XFormCloseBtn.addEventListener("click", closeModal);
-// thanksXBtnClose.addEventListener("click", (e) => {
-//   e.stopPropagation();
-//   closeModal();
-// });
-// thanksBtnClose.addEventListener("click", (e) => {
-//   e.stopPropagation();
-//   closeModal()
-// });
 
 function showErrors(errors) {
   const errorMessages = document.querySelectorAll(".error-message");
