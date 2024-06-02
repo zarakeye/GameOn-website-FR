@@ -3,10 +3,11 @@ const navbar = document.querySelector(".main-navbar");
 const navlinks = document.querySelectorAll(".navlink");
 const form = document.querySelector('form[name="reserve"]');
 const modalbg = document.querySelector(".bground");
+const modal = document.querySelector(".modal");
 const modalBtn = document.querySelectorAll(".modal-btn");
+const XFormCloseBtn = document.getElementById("XFormCloseBtn");
 const formData = document.querySelectorAll(".formData");
 const iconNav = document.querySelector(".icon");
-const modalCloseBtn = document.querySelector(".modal--close");
 const modalBody = document.querySelector(".modal-body");
 
 
@@ -69,7 +70,6 @@ iconNav.addEventListener("click", (e) => {
     }
 });
 
-modalCloseBtn.addEventListener("click", closeModal);
 
 const errors = {
   firstName: [],
@@ -191,35 +191,46 @@ const eventHandler = (e) => {
 
   if (e.type === 'submit' && validate(errors)) {
     console.log('validate : ', validate(errors));
-    modalBody.innerHTML = '';
+    // modalBody.innerHTML = '';
+    let thanksMessageModal = document.createElement("div");
+    thanksMessageModal.classList.add("modal");
+    let thanksMessageModalContent = `
+      <div class="modal">
+      <span id="thanksXBtnClose" class="modal--close"></span>
+        <p class="thanks-message">Merci pour votre inscription</p>
+        <button id="thanksBtnClose" class="cta" type="button" value="close">Fermer</button>
+      </div>
+    `;
 
-    const thanksMessage = document.createElement("p");
-    thanksMessage.innerHTML = "Merci pour votre inscription"
+    thanksMessageModal.innerHTML = thanksMessageModalContent;
+    // const thanksMessage = document.createElement("p");
+    // thanksMessage.innerHTML = "Merci pour votre inscription"
 
-    const btnClose = document.createElement('button');
-    btnClose.classList.add('cta');
-    btnClose.setAttribute('type', 'button');
-    btnClose.setAttribute('value', 'fermer');
-    btnClose.style.position = 'absolute';
-    btnClose.style.bottom = '18px';
-    btnClose.innerHTML = 'Fermer';
+    // const btnClose = document.createElement('button');
+    // btnClose.classList.add('cta');
+    // btnClose.setAttribute('type', 'button');
+    // btnClose.setAttribute('value', 'fermer');
+    // btnClose.style.position = 'absolute';
+    // btnClose.style.bottom = '18px';
+    // btnClose.innerHTML = 'Fermer';
 
-    modalBody.style.position = 'relative';
-    modalBody.style.display = 'flex';
-    modalBody.style.flexDirection = 'column';
-    modalBody.style.alignItems = 'center';
-    modalBody.style.justifyContent = 'center';
-    modalBody.style.width = '536px';
-    modalBody.style.height = '850px';
+    // modalBody.style.position = 'relative';
+    // modalBody.style.display = 'flex';
+    // modalBody.style.flexDirection = 'column';
+    // modalBody.style.alignItems = 'center';
+    // modalBody.style.justifyContent = 'center';
+    // modalBody.style.width = '536px';
+    // modalBody.style.height = '850px';
 
-    modalBody.appendChild(thanksMessage);
-    modalBody.appendChild(btnClose);
+    modal.appendChild(thanksMessageModal);
 
-    btnClose.addEventListener('click', () => {
-      closeModal();
-      // document.querySelector(".hero-section").style.display = "block";
-      // document.getElementsByTagName("footer").style.display = "block";
-    });
+    
+  const thanksXBtnClose = document.getElementById("thanksXBtnClose");
+  const thanksBtnClose = document.getElementById("thanksBtnClose");
+
+      
+  thanksBtnClose.addEventListener('click', closeModal);
+  thanksXBtnClose.addEventListener('click', closeModal);
   }
 };
 
@@ -232,17 +243,15 @@ nbPassedTournaments.addEventListener('input', eventHandler);
 locations.addEventListener('input', eventHandler);
 termsOfUse.addEventListener('input', eventHandler);
 form.addEventListener('submit', eventHandler);
-
-console.log('formData : ', {
-  firstName,
-  lastName,
-  email,
-  birthdate,
-  nbPassedTournaments,
-  locationLastTournament,
-  termsOfUse,
-  eventsNotifications
-});
+XFormCloseBtn.addEventListener("click", closeModal);
+// thanksXBtnClose.addEventListener("click", (e) => {
+//   e.stopPropagation();
+//   closeModal();
+// });
+// thanksBtnClose.addEventListener("click", (e) => {
+//   e.stopPropagation();
+//   closeModal()
+// });
 
 function showErrors(errors) {
   const errorMessages = document.querySelectorAll(".error-message");

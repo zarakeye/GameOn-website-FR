@@ -48,17 +48,6 @@ main {
 .smFont {
   font-size: 16px;
 }
-/* 
-@media screen and (max-width: 540px) {
-  main {
-    margin-right: 30px;
-    margin-left: 30px;
-  }
-  .cta {
-    font-size: 14px;
-    height: 31px;
-  }  
-} */
 
 @media (width > 540px) {
   main {
