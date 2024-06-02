@@ -1,12 +1,12 @@
 .bground {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 4;
   left: 0;
   top: 0;
   height: 100%;
   width: 100%;
-  overflow: auto;
+  /* overflow: auto; */
   background-color: rgba(26, 39, 156, 0.4);
 }
 
@@ -31,7 +31,8 @@
 
 label {
   font-family: var(--font-default);
-  font-size: 17px;
+  font-size: 14px;
+  line-height: 14px;
   font-weight: normal;
   display: inline-block;
   margin-bottom: 11px;
@@ -41,11 +42,18 @@ label span {
   color: var(--main-color);
 }
 
-input {
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="number"] {
   padding: 8px;
   border: 0.8px solid #ccc;
   outline: none;
 }
+
+#firstname, #lastname {
+  text-transform: capitalize;
+} 
 
 .text-control {
   margin: 0;
@@ -53,11 +61,26 @@ input {
   width: 100%;
   border-radius: 8px;
   font-size: 20px;
-  height: 48px;
+  height: 65px;
   color: var(--third-color);
 }
 .formData {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+  max-height: 109px;
+}
+.formData.formData--submit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#submit {
+  margin-top: 0px;
+}
+.formData.radio-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 26px;
+  row-gap: 7px;
 }
 
 .checkbox-label,
@@ -66,6 +89,8 @@ input {
   margin-left: 36px;
   font-size: 12px;
   font-weight: normal;
+  height: 26px;
+  margin-bottom: 0;
 }
 .checkbox-label .checkbox-icon,
 .checkbox2-label .checkbox-icon {
@@ -149,87 +174,16 @@ input {
 .modal--close:after {
   transform: rotate(-45deg);
 }
-.cta {
-  background: var(--main-color-1);
+.modal-body .cta {
   display: block;
-  margin: 0 auto;
-  border-radius: 7px;
-  font-size: 1rem;
-  padding: 12px 82px;
-  color: var(--secondary-color);
-  cursor: pointer;
-  border: 0;
-}
-/* custom select styles */
-.custom-select {
-  position: relative;
-  font-family: Arial;
-  font-size: 1.1rem;
-  font-weight: normal;
+  /* width: 182px;
+  font-size: 14px; */
 }
 
-.custom-select select {
-  display: none;
-}
-.select-selected {
-  background-color: var(--secondary-color);
-}
-
-/* Style the arrow inside the select element: */
-.select-selected:after {
-  position: absolute;
-  content: "";
-  top: 10px;
-  right: 13px;
-  width: 11px;
-  height: 11px;
-  border: 3px solid transparent;
-  border-bottom-color: var(--main-color);
-  border-left-color: var(--main-color);
-  transform: rotate(-48deg);
-  border-radius: 5px 0 5px 0;
-}
-
-/* Point the arrow upwards when the select box is open (active): */
-.select-selected.select-arrow-active:after {
-  transform: rotate(135deg);
-  top: 13px;
-}
-
-.select-items div,
-.select-selected {
-  color: var(--third-color);
-  padding: 11px 16px;
-  border: 1px solid transparent;
-  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-  cursor: pointer;
-  border-radius: 8px;
-  height: 48px;
-}
-
-/* Style items (options): */
-.select-items {
-  position: absolute;
-  background-color: var(--secondary-color);
-  top: 89%;
-  left: 0;
-  right: 0;
-  z-index: 99;
-}
-
-/* Hide the items when the select box is closed: */
-.select-hide {
-  display: none;
-}
-
-.select-items div:hover,
-.same-as-selected {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-/* custom select end */
 .text-label {
   font-weight: normal;
-  font-size: 16px;
+  font-size: 14px;
+  line-height: 18px;
 }
 
 .error {
@@ -239,7 +193,26 @@ input {
 .attention,
 .error-message {
   color: var(--main-color);
-  font-size: 16px;
+  font-size: 10px;
+  /* padding-top: 6px; */
+  /* padding-bottom: 13px; */
+}
+#lastTournament ~ .error-message {
+  padding-top: 0;
+}
+
+@media screen and (max-width: 540px) {
+  .bground {
+    background-color: initial;
+  }
+  .modal {
+    position: absolute;
+    margin: 0;
+    top: 85px;
+  } 
+  .text-control {
+    height: 50px;
+  }
 }
 
 @keyframes modalopen {

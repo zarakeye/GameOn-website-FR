@@ -1,12 +1,12 @@
 // DOM Elements
+const navbar = document.querySelector(".main-navbar");
+const navlinks = document.querySelectorAll(".navlink");
 const form = document.querySelector('form[name="reserve"]');
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
-const iconNav = document.querySelector(".main-navbar .icon");
-const modalCloseBtn = document.querySelector(
-  ".modal--close"
-);
+const iconNav = document.querySelector(".icon");
+const modalCloseBtn = document.querySelector(".modal--close");
 const modalBody = document.querySelector(".modal-body");
 
 
@@ -20,9 +20,6 @@ const tournaments = document.getElementsByName("locationLastTournament");
 const locations = document.getElementById("locations");
 const termsOfUse = document.getElementById("termsOfUse");
 
-locations.style.display = "grid";
-locations.style.gridTemplateColumns = "1fr 1fr 1fr";
-
 // Regexp
 const regexpName = /^(?![-'\\d])[-'a-zA-ZÀ-ÿ]+$/;
 const regexpEmail =
@@ -31,14 +28,16 @@ const regexpBirthdate =
   /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[012])\/(19[0-9]{2}|20[0-9]{2})$/;
 const regexpNbPassedTournaments = /^[0-9]+$/;
 
-function editNav() {
-  var header = document.getElementById("myTopnav");
-  if (header.className === "topnav") {
-    header.classList.add("responsive");
-  } else {
-    header.classList.remove("responsive");
+navlinks.forEach((link) => link.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  if (!link.classList.contains("active")) {
+    navlinks.forEach((otherlink) => otherlink.classList.remove("active"));
+    link.classList.add("active");
   }
-}
+
+
+}));
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -46,6 +45,15 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  const header = document.getElementById("myTopnav");
+  const iconNav = document.querySelector(".main-navbar .icon");
+
+  if (header.classList.contains("responsive")) {
+    header.classList.remove("responsive");
+    if (iconNav.classList.contains("active")) {
+      iconNav.classList.remove("active");
+    }
+  }
 }
 
 // close modal form
@@ -54,24 +62,30 @@ function closeModal() {
 }
 
 iconNav.addEventListener("click", (e) => {
-  e.preventDefault();
-  editNav();
+    if (navbar.style.display === "none") {
+      navbar.style.display = "block";
+    } else {
+      navbar.style.display = "none";
+    }
 });
 
 modalCloseBtn.addEventListener("click", closeModal);
 
+const errors = {
+  firstName: [],
+  lastName: [],
+  email: [],
+  birthdate: [],
+  nbPassedTournaments: [],
+  locationLastTournament: [],
+  termsOfUse: []
+};
+
+function capitalize(str) {
+  return str[0].toUpperCase() + str.slice(1);
+}
 const eventHandler = (e) => {
   e.preventDefault();
-
-  const errors = {
-    firstName: [],
-    lastName: [],
-    email: [],
-    birthdate: [],
-    nbPassedTournaments: [],
-    locationLastTournament: [],
-    termsOfUse: []
-  };
 
   const formData = new FormData(form);
 
@@ -82,45 +96,37 @@ const eventHandler = (e) => {
   const nbPassedTournaments = parseInt(formData.get('nbPassedTournaments'), 10);
   const locationLastTournament = formData.get('locationLastTournament');
   const termsOfUse = formData.get('termsOfUse');
-  const eventsNotifications = formData.get('eventsNotifications');
-
-  console.log('formData : ', {
-    firstName,
-    lastName,
-    email,
-    birthdate,
-    nbPassedTournaments,
-    locationLastTournament,
-    termsOfUse,
-    eventsNotifications
-  });
 
   // Rules for first name
-  if (/*e.type === 'submit' && */firstName.length === 0) {
-    errors.firstName.push('Veuillez entrer votre prénom');
-  }
-  if ((e.type === 'input' || e.type === 'change') && /^[-'\\d]+[-'a-zA-ZÀ-ÿ]*$/.test(firstName)) {
-    errors.firstName.push('Le prénom doit obligatoirement commencer par une lettre');
-  }
-  if ((e.type === 'input' || e.type === 'change') && firstName.length < 2) {
-    errors.firstName.push('Le prénom doit contenir au moins 2 caractères');
-  }
   if (!regexpName.test(firstName)) {
     errors.firstName.push("Le prénom entré n'est pas valide")
+  } else {
+    errors.firstName = [];
+  }
+  if (firstName.length < 2) {
+    errors.firstName.push('Le prénom doit contenir au moins 2 caractères');
+  }
+  if (/^[-'\\d]+[-'a-zA-ZÀ-ÿ]*$/.test(firstName)) {
+    errors.firstName.push('Le prénom doit obligatoirement commencer par une lettre');
+  }
+  if (firstName.length === 0) {
+    errors.firstName.push('Veuillez entrer votre prénom');
   }
 
   // Rules for last name
-  if (e.type === 'submit' && lastName.length === 0) {
-    errors.lastName.push("Veuillez entrer votre nom");
-  }
-  if ((e.type === 'input' || e.type === 'change') && /^[-'\\d]+[-'a-zA-ZÀ-ÿ]+$/.test(lastName)) {
-    errors.lastName.push('Le nom doit obligatoirement commencer par une lettre');
-  }
-  if ((e.type === 'input' || e.type === 'change') && lastName.length < 2) {
-    errors.lastName.push("Le nom doit contenir au moins 2 caractères");
-  }
   if (!regexpName.test(lastName)) {
     errors.lastName.push("Le nom entré n'est pas valide");
+  } else {
+    errors.lastName = [];
+  }
+  if (lastName.length < 2) {
+    errors.lastName.push("Le nom doit contenir au moins 2 caractères");
+  }
+  if (/^[-'\\d]+[-'a-zA-ZÀ-ÿ]*$/.test(lastName)) {
+    errors.lastName.push('Le nom doit obligatoirement commencer par une lettre');
+  }
+  if (lastName.length === 0) {
+    errors.lastName.push("Veuillez entrer votre nom");
   }
 
   // Rules for email
@@ -151,27 +157,37 @@ const eventHandler = (e) => {
   }
 
   // Rule for the location of the last tournament
-  // if (/*e.type === 'submit' && */locationLastTournament === null) {
+  // if (locationLastTournament === null) {
   
   //   e.preventDefault();
   //   errors.locationLastTournament.push("Veuillez sélectionner la ville dans laquelle s'est déroulé votre dernier tournoi");
   // }
   
-  
-
-  if (locationLastTournament === null) {
+  if (e.type === 'submit' && locationLastTournament === null) {
     errors.locationLastTournament.push("Veuillez sélectionner la ville dans laquelle s'est déroulé votre dernier tournoi");
+  }
+  if (e.type !== 'submit' && locationLastTournament !== null) {
+    errors.locationLastTournament = [];
   }
   
 
   // Rule for terms of use
-  if (termsOfUse !== 'on') {
+  if (e.type === 'submit' && termsOfUse !== 'on') {
     errors.termsOfUse.push("Veuillez accepter les conditions d'utilisation pour pouvoir valider votre inscription, ou cliquer sur la croix en haut a droite pour abandonner l'inscription");
+  }
+
+  if (e.type !== 'submit' && termsOfUse === 'on') {
+    errors.termsOfUse = [];
   }
 
   console.log('errors', errors);
 
-  showErrors(errors);  
+  if (e.type === 'submit') {
+    showErrors(errors);
+  } else {
+    showInputErrors(errors, e.target.name);
+  }
+  
 
   if (e.type === 'submit' && validate(errors)) {
     console.log('validate : ', validate(errors));
@@ -199,10 +215,15 @@ const eventHandler = (e) => {
     modalBody.appendChild(thanksMessage);
     modalBody.appendChild(btnClose);
 
-    btnClose.addEventListener('click', closeModal);
+    btnClose.addEventListener('click', () => {
+      closeModal();
+      // document.querySelector(".hero-section").style.display = "block";
+      // document.getElementsByTagName("footer").style.display = "block";
+    });
   }
 };
 
+/*** Event Listeners on form inputs */
 firstName.addEventListener('input', eventHandler);
 lastName.addEventListener('input', eventHandler);
 email.addEventListener('input', eventHandler);
@@ -233,49 +254,89 @@ function showErrors(errors) {
 
   errorsKeys.forEach((key) => {
     const inputErrors = errors[key];
-    const input = document.querySelector(`[name="${key}"]`);
-    // document.querySelector(`[name="${key}"] ~ .error-message`).remove();
-    const firstErrorOfKey = inputErrors[0];
-    if (inputErrors.length > 0) {
+    let lastErrorOfKey;
+    if (inputErrors !== undefined && inputErrors.length > 0) {
+      lastErrorOfKey = inputErrors[inputErrors.length - 1];
+      const input = document.querySelector(`[name="${key}"]`);
       input.classList.add('error');
       const errorMessage = document.createElement("p");
       errorMessage.classList.add('error-message');
       errorMessage.setAttribute('data-error', 'true');
       errorMessage.setAttribute('data-error-visible', 'true');
       errorMessage.innerHTML = "";
-      errorMessage.innerHTML = firstErrorOfKey;
+      errorMessage.innerHTML = lastErrorOfKey;
       if (key === 'locationLastTournament') {
         document.getElementById('lastTournament').insertAdjacentElement("afterend", errorMessage);
       } else {
         input.insertAdjacentElement("afterend", errorMessage);
       }
     } else {
-      input.classList.remove('error');
+      const name = document.querySelector(`[name="${key}"]`);
+      let input;
+      if (name.name === 'locationLastTournament') {
+        input = document.getElementById('lastTournament');
+      } else {
+        input = name;
+      }
+
+      if (input.classList.contains('error')) {
+        input.classList.remove('error');
+      }
+      const errorMessage = document.querySelector(`[name="${key}"] ~ .error-message`);
+      if (errorMessage) {
+        errorMessage.remove();
+      }
     }
-    // showInputErrors(errors, key);
   });
 }
 
 function showInputErrors(errors, key) {
-  const errorMessages = document.querySelectorAll(".error-message");
-  errorMessages.forEach((errorMessage) => {
-    errorMessage.remove();
-  });
-
-  const input = document.querySelector(`[name="${key}"]`);
   const inputErrors = errors[key];
-  const firstErrorOfKey = inputErrors[0];
-  if (inputErrors.length > 0) {
-    input.classList.add('error');
-    const errorMessage = document.createElement("p");
-    errorMessage.classList.add('error-message');
-    errorMessage.setAttribute('data-error', 'true');
-    errorMessage.setAttribute('data-error-visible', 'true');
-    errorMessage.innerHTML = "";
-    errorMessage.innerHTML = firstErrorOfKey;
-    input.insertAdjacentElement("afterend", errorMessage);
+  let lastErrorOfKey;
+  if (inputErrors !== undefined && inputErrors.length > 0) {
+    lastErrorOfKey = inputErrors[inputErrors.length - 1];
+
+    const name = document.querySelector(`[name="${key}"]`);
+    let input;
+    
+    if (name.name === 'locationLastTournament') {
+      input = document.getElementById('lastTournament');
+    } else {
+      input = name;
+      input.classList.add('error');
+    }
+    
+    let errorMessage = document.querySelector(`[name="${key}"] ~ .error-message`);
+    if (inputErrors.length > 0) {
+      if (errorMessage) {
+        errorMessage.innerHTML = "";
+        errorMessage.innerHTML = lastErrorOfKey;
+      } else {
+        errorMessage = document.createElement("p");
+        errorMessage.classList.add('error-message');
+        errorMessage.setAttribute('data-error', 'true');
+        errorMessage.setAttribute('data-error-visible', 'true');
+        errorMessage.innerHTML = lastErrorOfKey;
+        input.insertAdjacentElement("afterend", errorMessage);
+      }
+    }
   } else {
-    input.classList.remove('error');
+    const name = document.querySelector(`[name="${key}"]`);
+    let input;
+    if (name.name === 'locationLastTournament') {
+      input = document.getElementById('lastTournament');
+      let errorMessages = document.querySelectorAll('#lastTournament ~ .error-message');
+      errorMessages.forEach((errorMessage) => {
+        errorMessage.remove();
+      });
+    } else {
+      input = name;
+      input.classList.remove('error');
+      const errorMessage = document.querySelector(`[name="${key}"] ~ .error-message`);
+      if (errorMessage) {
+        errorMessage.remove();
+      }
+    }
   }
 }
 
@@ -288,4 +349,3 @@ function validate(errors) {
   }
   return true;
 }
-

@@ -2,30 +2,33 @@ main {
   font-size: 130%;
   font-weight: bolder;
   color: var(--third-color);
-  padding-top: 0.5vw;
-  padding-left: 2vw;
-  padding-right: 2vw;
-  margin: 1px 20px 15px;
+  margin: 1px 30px;
   border-radius: 2rem;
   text-align: justify;
 
 
 }
-
-.modal-btn {
-  font-size: 145%;
-  background: var(--main-color-1);
-  display: flex;
-  margin: auto;
-  padding: 2em;
+.cta {
+  background-color: var(--main-color-1);
   color: var(--secondary-color);
-  padding: 0.75rem 2.5rem;
-  border-radius: 1rem;
-  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  text-transform: capitalize;
+  font-size: 14px;
+  height: 31px;
+  /* padding: 15px 23px;*/
+  padding-left: 31.5px;
+  padding-right: 31.5px;
+  margin: 0;
+  margin-top: 59px;
+  border-radius: 8px;
+  border: 0;
 }
-
-.modal-btn:hover {
-  background: #3876ac;
+.cta span {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .button {
@@ -44,5 +47,26 @@ main {
 
 .smFont {
   font-size: 16px;
+}
+/* 
+@media screen and (max-width: 540px) {
+  main {
+    margin-right: 30px;
+    margin-left: 30px;
+  }
+  .cta {
+    font-size: 14px;
+    height: 31px;
+  }  
+} */
+
+@media (width > 540px) {
+  main {
+    margin: 1px 60px;
+  }
+  .cta {
+    font-size: 25px;
+    height: 55px;
+  }
 }
 

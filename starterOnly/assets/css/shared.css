@@ -25,7 +25,6 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  /* background-image: url("background.png"); */
   background-color: var(--secondary-color);
   font-family: var(--font-default);
   font-size: 18px;

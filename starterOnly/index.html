@@ -12,6 +12,7 @@
 </head>
 
 <body>
+  <!-- Header -->
   <header class="topnav" id="myTopnav">
     <div class="header-logo">
       <img alt="logo" src="assets/images/Logo.png">
@@ -19,31 +20,29 @@
     <nav class="main-navbar">
       <ul>
         <li>
-          <a href="#" class="active"><span>Accueil</span></a>
+          <a href="#" class="navlink active"><span>Accueil</span></a>
         </li>
         <li>
-          <a href="#"><span>Détails de l'évènement</span></a>
+          <a href="#" class="navlink"><span>Détails de l'évènement</span></a>
         </li>
         <li>
-          <a href="#"><span>À propos</span></a>
+          <a href="#" class="navlink"><span>À propos</span></a>
         </li>
         <li>
-          <a href="#"><span>Contact</span></a>
+          <a href="#" class="navlink"><span>Contact</span></a>
         </li>
         <li>
-          <a href="#"><span>Évènements passés</span></a>
-        </li>
-        <li>
-          <!-- <a href="javascript:void(0);" class="icon" onclick="editNav()"> -->
-          <a href="#" class="icon">
-            <i class="fa fa-bars"></i><span class="sr-only">Bouton de navigation</span>
-          </a>
+          <a href="#" class="navlink"><span>Évènements passés</span></a>
         </li>
       </ul>
     </nav>
+    <a href="#" class="icon">
+      <i class="fa fa-bars"></i><span class="sr-only">Bouton de navigation</span>
+    </a>
   </header>
 
   <main>
+    <!-- Hero -->
     <section class="hero-section">
       <div class="hero-content">
         <h1 class="hero-headline">
@@ -55,7 +54,7 @@
           aux réservations... Places limitées !
         </p>
         <button type="button" class="cta modal-btn">
-          je m'inscris
+          <span>je m'inscris</span>
         </button>
       </div>
       <div class="hero-img">
@@ -63,45 +62,46 @@
           alt="Gameuse, un gamepad &agrave; la main, les bras en l'air en signe de victoire">
       </div>
       <button type="button" class="cta modal-btn">
-        je m'inscris
+        <span>je m'inscris</span>
       </button>
     </section>
 
+    <!-- Modal -->
     <div class="bground">
-      <h2 class="sr-only">Formulaire d'inscriptions</h2>
       <section class="modal">
+        <h2 class="sr-only">Formulaire d'inscriptions</h2>
         <span class="modal--close"></span>
         <div class="modal-body">
           <form name="reserve" action="index.html" method="get">
 
             <div class="formData">
-              <label for="firstName">Prénom <span>*</span></label><br>
-              <input class="text-control" type="text" id="firstName" name="firstName"><br>
+              <label for="firstName">Prénom <span>*</span></label>
+              <input class="text-control" type="text" id="firstName" name="firstName">
             </div>
 
             <div class="formData">
-              <label for="lastName">Nom <span>*</span></label><br>
-              <input class="text-control" type="text" id="lastName" name="lastName"><br>
+              <label for="lastName">Nom <span>*</span></label>
+              <input class="text-control" type="text" id="lastName" name="lastName">
             </div>
 
             <div class="formData">
-              <label for="email">E-mail <span>*</span></label><br>
-              <input class="text-control" type="email" id="email" name="email"><br>
+              <label for="email">E-mail</label>
+              <input class="text-control" type="email" id="email" name="email">
             </div>
 
             <div class="formData">
-              <label for="birthdate">Date de naissance</label><br>
-              <input class="text-control" type="date" id="birthdate" name="birthdate"><br>
+              <label for="birthdate">Date de naissance</label>
+              <input class="text-control" type="date" id="birthdate" name="birthdate">
             </div>
 
             <div class="formData">
-              <label for="nbPassedTournaments">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
+              <label for="nbPassedTournaments">À combien de tournois GameOn avez-vous déjà participé ?</label>
               <input type="number" class="text-control" id="nbPassedTournaments" name="nbPassedTournaments" min="0"
                 max="99">
             </div>
 
             <p id="lastTournament" class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
-            <div class="formData" id="locations">
+            <div class="formData radio-group" id="locations">
               <input class="checkbox-input" type="radio" id="New-York" name="locationLastTournament" value="New-York">
               <label class="checkbox-label" for="New-York">
                 <span class="checkbox-icon"></span>
@@ -120,16 +120,19 @@
                 <span class="checkbox-icon"></span>
                 Seattle
               </label>
+
               <input class="checkbox-input" type="radio" id="Chicago" name="locationLastTournament" value="Chicago">
               <label class="checkbox-label" for="Chicago">
                 <span class="checkbox-icon"></span>
                 Chicago
               </label>
+
               <input class="checkbox-input" type="radio" id="Boston" name="locationLastTournament" value="Boston">
               <label class="checkbox-label" for="Boston">
                 <span class="checkbox-icon"></span>
                 Boston
               </label>
+
               <input class="checkbox-input" type="radio" id="Portland" name="locationLastTournament" value="Portland">
               <label class="checkbox-label" for="Portland">
                 <span class="checkbox-icon"></span>
@@ -152,15 +155,18 @@
               </label>
               <br>
             </div>
-            <input class="cta" type="submit" id="submit" value="C'est parti">
+            <div class="formData formData--submit">
+              <input class="cta" type="submit" id="submit" value="C'est parti">
+            </div>
+
           </form>
-          <small class="attention"><span>*</span>: Champs requis</small>
         </div>
+        <small class="attention"><span>*</span>: Champs requis</small>
       </section>
     </div>
   </main>
   <footer>
-    <p class="copyrights">
+    <p class="copyright">
       Copyright 2014 - 2022, GameOn Inc.
     </p>
   </footer>
