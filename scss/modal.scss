@@ -4,6 +4,7 @@
   top: 85px;
   z-index: 4;
   left: 0;
+
   /* top: 0; */
   height: 100%;
   width: 100%;
@@ -35,15 +36,18 @@ label {
   font-weight: normal;
   display: inline-block;
   margin-bottom: 11px;
-}
-label span {
-  color: var(--main-color);
+
+  span {
+    color: var(--main-color);
+  }
 }
 
-input[type=text], input[type=email], input[type=date], input[type=number] {
-  padding: 8px;
-  border: 0.8px solid #ccc;
-  outline: none;
+input {
+  &[type="text"], &[type="email"], &[type="date"], &[type="number"] {
+    padding: 8px;
+    border: 0.8px solid #ccc;
+    outline: none;
+  }
 }
 
 #firstname, #lastname {
@@ -64,11 +68,12 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
 .formData {
   margin-bottom: 5px;
   max-height: 109px;
-}
-.formData.formData--submit {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
+  &.formData--submit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 #submit {
@@ -123,33 +128,39 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
 
 .checkbox-input {
   display: none;
-}
-.checkbox-input:checked + .checkbox-label .checkbox-icon::after {
-  opacity: 1;
-}
-.checkbox-input:checked + .checkbox2-label .checkbox-icon {
-  background: var(--fifth-color);
-}
-.checkbox-input:checked + .checkbox2-label .checkbox-icon::after {
-  opacity: 1;
+
+  &:checked + {
+    .checkbox-label .checkbox-icon::after {
+      opacity: 1;
+    }
+
+    .checkbox2-label .checkbox-icon {
+      &::after {
+        opacity: 1;
+      }
+
+      background: var(--fifth-color);
+    }
+  }
 }
 
 .checkbox2-label .checkbox-icon {
   border-radius: 4px;
   border: 0;
   background: #c4c4c4;
-}
-.checkbox2-label .checkbox-icon::after {
-  width: 7px;
-  height: 4px;
-  border-radius: 2px;
-  background: transparent;
-  border: 2px solid transparent;
-  border-bottom-color: var(--secondary-color);
-  border-left-color: var(--secondary-color);
-  transform: rotate(-55deg);
-  left: 21%;
-  top: 19%;
+
+  &::after {
+    width: 7px;
+    height: 4px;
+    border-radius: 2px;
+    background: transparent;
+    border: 2px solid transparent;
+    border-bottom-color: var(--secondary-color);
+    border-left-color: var(--secondary-color);
+    transform: rotate(-55deg);
+    left: 21%;
+    top: 19%;
+  }
 }
 
 .modal--close {
@@ -161,20 +172,23 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
   opacity: 1;
   cursor: pointer;
   transform: scale(0.7);
-}
-.modal--close:before, .modal--close:after {
-  position: absolute;
-  left: 15px;
-  content: " ";
-  height: 33px;
-  width: 3px;
-  background-color: var(--secondary-color);
-}
-.modal--close:before {
-  transform: rotate(45deg);
-}
-.modal--close:after {
-  transform: rotate(-45deg);
+
+  &:before, &:after {
+    position: absolute;
+    left: 15px;
+    content: " ";
+    height: 33px;
+    width: 3px;
+    background-color: var(--secondary-color);
+  }
+
+  &:before {
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    transform: rotate(-45deg);
+  }
 }
 
 .modal-body .cta {
@@ -191,10 +205,11 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
   background: var(--third-color-1);
   width: 100%;
   height: 100%;
-}
-.modal .modal .cta {
-  position: absolute;
-  bottom: 18px;
+
+  .cta {
+    position: absolute;
+    bottom: 18px;
+  }
 }
 
 .text-label {
@@ -224,9 +239,10 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
 #lastTournament {
   padding-top: 11px;
   margin-bottom: 11px;
-}
-#lastTournament ~ .error-message {
-  padding-top: 0;
+
+  ~ .error-message {
+    padding-top: 0;
+  }
 }
 
 @media (width > 540px) {
@@ -235,29 +251,34 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
     top: 0;
     background-color: rgba(26, 39, 156, 0.4);
   }
+
   .modal {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     height: unset;
+
+    .modal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
-  .modal .modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+
   .text-control {
     height: 50px;
   }
 }
+
 @keyframes modalopen {
   from {
     opacity: 0;
     transform: translateY(-150px);
   }
+
   to {
     opacity: 1;
   }
-}/*# sourceMappingURL=modal.css.map */
+}

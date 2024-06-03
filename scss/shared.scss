@@ -2,6 +2,7 @@
   --font-default: "DM Sans", Arial, Helvetica, sans-serif;
   --font-slab: var(--font-default);
   --modal-duration: 0.8s;
+
   /* Colors */
   --main-color: #ff0000;
   --main-color-1: #fe142f;
@@ -18,8 +19,8 @@
   margin: 0;
   padding: 0;
 }
-
 /* Landing Page */
+
 body {
   margin: 0;
   display: flex;
@@ -38,4 +39,4 @@ p {
 
 img {
   padding-right: 1rem;
-}/*# sourceMappingURL=shared.css.map */
+}

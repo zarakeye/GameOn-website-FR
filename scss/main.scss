@@ -17,6 +17,7 @@ main {
   text-transform: capitalize;
   font-size: 14px;
   height: 31px;
+
   /* padding: 15px 23px;*/
   padding-left: 31.5px;
   padding-right: 31.5px;
@@ -24,10 +25,11 @@ main {
   margin-top: 59px;
   border-radius: 8px;
   border: 0;
-}
-.cta span {
-  display: inline-block;
-  white-space: nowrap;
+
+  span {
+    display: inline-block;
+    white-space: nowrap;
+  }
 }
 
 .button {
@@ -38,9 +40,10 @@ main {
   border-radius: 15px;
   cursor: pointer;
   font-size: 16px;
-}
-.button:hover {
-  background: var(--fourth-color);
+
+  &:hover {
+    background: var(--fourth-color);
+  }
 }
 
 .smFont {
@@ -51,8 +54,9 @@ main {
   main {
     margin: 1px 60px;
   }
+
   .cta {
     font-size: 25px;
     height: 55px;
   }
-}/*# sourceMappingURL=main.css.map */
+}
