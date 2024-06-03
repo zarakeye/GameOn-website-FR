@@ -11,12 +11,10 @@
 .hero-content {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: flex-start;
   background: $color_4;
   color: $color_5;
   padding: initial;
-  align-items: center;
 
   .cta {
     display: none;
