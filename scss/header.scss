@@ -1,3 +1,5 @@
+@import "variables";
+
 .topnav {
   position: relative;
   display: block;
@@ -46,9 +48,9 @@
     top: 0;
     flex-direction: column;
     z-index: 1;
-    background-color: var(--secondary-color);
+    background-color: $color_4;
     border-radius: 8px;
-    box-shadow: 0 0 10px 0 var(--third-color);
+    box-shadow: 0 0 10px 0 $color_5;
 
     @media (width >= 1115px) {
       flex-direction: row;
@@ -64,7 +66,7 @@
 }
 .navlink {
   float: left;
-  color: var(--third-color);
+  color: $color_5;
   text-align: center;
   padding-top: 6px;
   padding-bottom: 7px;
@@ -80,10 +82,10 @@
   @media (width > 540px) {
     height: 41px;
   }
-  
+
   &.active, &:hover {
-    background-color: var(--main-color);
-    color: var(--secondary-color);
+    background-color: $color_1;
+    color: $color_4;
     border-radius: 8px;
   }
     
@@ -96,7 +98,7 @@
 .icon {
   display: block;
   position: absolute;
-  color: var(--main-color);
+  color: $color_1;
   padding: 0;
   top: 0px;
   right: 5px;
@@ -108,8 +110,8 @@
   }
  
   &:hover {
-    background-color: var(--secondary-color);
-    color: var(--main-color);
+    background-color: $color_4;
+    color: $color_1;
   }
 
   .fa.fa-bars {

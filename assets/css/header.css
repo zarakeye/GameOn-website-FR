@@ -1,3 +1,4 @@
+/* Colors */
 .topnav {
   position: relative;
   display: block;
@@ -49,9 +50,9 @@
   top: 0;
   flex-direction: column;
   z-index: 1;
-  background-color: var(--secondary-color);
+  background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 0 10px 0 var(--third-color);
+  box-shadow: 0 0 10px 0 #000000;
 }
 @media (width >= 1115px) {
   .main-navbar ul {
@@ -67,7 +68,7 @@
 
 .navlink {
   float: left;
-  color: var(--third-color);
+  color: #000000;
   text-align: center;
   padding-top: 6px;
   padding-bottom: 7px;
@@ -86,8 +87,8 @@
   }
 }
 .navlink.active, .navlink:hover {
-  background-color: var(--main-color);
-  color: var(--secondary-color);
+  background-color: #ff0000;
+  color: #ffffff;
   border-radius: 8px;
 }
 .navlink.active {
@@ -97,7 +98,7 @@
 .icon {
   display: block;
   position: absolute;
-  color: var(--main-color);
+  color: #ff0000;
   padding: 0;
   top: 0px;
   right: 5px;
@@ -110,8 +111,8 @@
   }
 }
 .icon:hover {
-  background-color: var(--secondary-color);
-  color: var(--main-color);
+  background-color: #ffffff;
+  color: #ff0000;
 }
 .icon .fa.fa-bars {
   font-size: 19px;

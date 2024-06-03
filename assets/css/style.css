@@ -1,6 +1,7 @@
-@import url("shared.css");
-@import url("header.css");
-@import url("main.css");
-@import url("hero.css");
-@import url("modal.css");
-@import url("footer.css");/*# sourceMappingURL=style.css.map */
+/* Colors */
+@import "shared.css";
+@import "header.css";
+@import "main.css";
+@import "hero.css";
+@import "modal.css";
+@import "footer.css";/*# sourceMappingURL=style.css.map */

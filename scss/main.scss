@@ -1,15 +1,17 @@
+@import "variables";
+
 main {
   font-size: 130%;
   font-weight: bolder;
-  color: var(--third-color);
+  color: $color_5;
   margin: 1px 30px;
   border-radius: 2rem;
   text-align: justify;
 }
 
 .cta {
-  background-color: var(--main-color-1);
-  color: var(--secondary-color);
+  background-color: $color_2;
+  color: $color_4;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,16 +35,16 @@ main {
 }
 
 .button {
-  background: var(--main-color-1);
+  background: $color_2;
   margin-top: 0.5em;
   padding: 1em;
-  color: var(--secondary-color);
+  color: $color_4;
   border-radius: 15px;
   cursor: pointer;
   font-size: 16px;
 
   &:hover {
-    background: var(--fourth-color);
+    background: $color_7;
   }
 }
 

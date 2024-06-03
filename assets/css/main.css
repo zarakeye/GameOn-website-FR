@@ -1,15 +1,16 @@
+/* Colors */
 main {
   font-size: 130%;
   font-weight: bolder;
-  color: var(--third-color);
+  color: #000000;
   margin: 1px 30px;
   border-radius: 2rem;
   text-align: justify;
 }
 
 .cta {
-  background-color: var(--main-color-1);
-  color: var(--secondary-color);
+  background-color: #fe142f;
+  color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,16 +32,16 @@ main {
 }
 
 .button {
-  background: var(--main-color-1);
+  background: #fe142f;
   margin-top: 0.5em;
   padding: 1em;
-  color: var(--secondary-color);
+  color: #ffffff;
   border-radius: 15px;
   cursor: pointer;
   font-size: 16px;
 }
 .button:hover {
-  background: var(--fourth-color);
+  background: #3876ac;
 }
 
 .smFont {
