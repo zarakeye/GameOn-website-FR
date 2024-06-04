@@ -2,10 +2,9 @@
 .bground {
   display: none;
   position: absolute;
-  top: 85px;
   z-index: 4;
   left: 0;
-  /* top: 0; */
+  top: 0;
   height: 100%;
   width: 100%;
 }
@@ -21,7 +20,9 @@
   position: relative;
   color: #ffffff;
   padding-top: 10px;
-  height: calc(100vh - 85px);
+  padding-bottom: 10px;
+  top: 85px;
+  min-height: calc(100vh - 85px);
 }
 
 .modal-body {
@@ -209,10 +210,13 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
 }
 
 .attention {
+  position: absolute;
+  bottom: 10px;
   display: block;
   color: #ff0000;
   font-size: 10px;
-  padding: 15px 8%;
+  padding-left: 8%;
+  padding-right: 8%;
 }
 
 .error-message {
