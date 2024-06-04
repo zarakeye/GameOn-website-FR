@@ -221,7 +221,7 @@ input[type="number"] {
 
 #lastTournament {
   padding-top: 11px;
-  margin-bottom: 11px;
+  padding-bottom: 11px;
 }
 #lastTournament ~ .error-message {
   padding-top: 0;
