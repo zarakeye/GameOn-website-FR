@@ -183,11 +183,12 @@ const eventHandler = (e) => {
   console.log('errors', errors);
 
   if (e.type === 'submit') {
-    // Shows all errors at submit
-    showErrors(errors);
+    // Displays all errors at submit
+    displayFormErrors(errors);
   } else {
-    // Shows the current error of the focused input
-    showInputErrors(errors, e.target.name);
+    // Displays the current error of the focused input
+    // displayFormInputErrors(errors, e.target.name);
+    displayFormInputErrors(errors, e.target.name);
   }
   
 
@@ -224,7 +225,8 @@ termsOfUse.addEventListener('input', eventHandler);
 form.addEventListener('submit', eventHandler);
 XFormCloseBtn.addEventListener("click", closeModal);
 
-function showErrors(errors) {
+// Displas all errors at submit
+function displayFormErrors(errors) {
   const errorMessages = document.querySelectorAll(".error-message");
   errorMessages.forEach((errorMessage) => {
     errorMessage.remove();
@@ -245,80 +247,52 @@ function showErrors(errors) {
       errorMessage.setAttribute('data-error-visible', 'true');
       errorMessage.innerHTML = "";
       errorMessage.innerHTML = lastErrorOfKey;
+
+      // Exception for this input which is an input of type radio
+      // because the error message should be displayed after the radio button.
+      // The error message should be displayed before the radio button.
       if (key === 'locationLastTournament') {
-        document.getElementById('lastTournament').insertAdjacentElement("afterend", errorMessage);
+        errorMessage.style.paddingBottom = '11px';
+        input.parentNode.insertAdjacentElement("beforebegin", errorMessage);
       } else {
         input.insertAdjacentElement("afterend", errorMessage);
-      }
-    } else {
-      const name = document.querySelector(`[name="${key}"]`);
-      let input;
-      if (name.name === 'locationLastTournament') {
-        input = document.getElementById('lastTournament');
-      } else {
-        input = name;
-      }
-
-      if (input.classList.contains('error')) {
-        input.classList.remove('error');
-      }
-      const errorMessage = document.querySelector(`[name="${key}"] ~ .error-message`);
-      if (errorMessage) {
-        errorMessage.remove();
       }
     }
   });
 }
 
-function showInputErrors(errors, key) {
+// Display the last error of the input
+function displayFormInputErrors(errors, key) {
   const inputErrors = errors[key];
-  let lastErrorOfKey;
-  if (inputErrors !== undefined && inputErrors.length > 0) {
-    lastErrorOfKey = inputErrors[inputErrors.length - 1];
+  let input = document.querySelector(`[name="${key}"]`);
+  let errorMessage = document.querySelector(`[name="${key}"] ~ .error-message`);
+  const newErrorMessage = document.createElement("p");
+  newErrorMessage.classList.add('error-message');
+  newErrorMessage.setAttribute('data-error', 'true');
+  newErrorMessage.setAttribute('data-error-visible', 'true');
 
-    const name = document.querySelector(`[name="${key}"]`);
-    let input;
-    
-    if (name.name === 'locationLastTournament') {
-      input = document.getElementById('lastTournament');
-    } else {
-      input = name;
-      input.classList.add('error');
+  if (inputErrors && inputErrors.length > 0) {
+    input.classList.add('error');
+    errorMessage?.remove();
+
+    const lastErrorOfKey = inputErrors[inputErrors.length - 1];
+    newErrorMessage.innerHTML = lastErrorOfKey;
+
+    if (input.name === 'locationLastTournament') {
+      newErrorMessage.style.paddingBottom = '11px';
+      input.parentNode.insertAdjacentElement("beforebegin", newErrorMessage);
     }
-    
-    let errorMessage = document.querySelector(`[name="${key}"] ~ .error-message`);
-    if (inputErrors.length > 0) {
-      if (errorMessage) {
-        errorMessage.innerHTML = "";
-        errorMessage.innerHTML = lastErrorOfKey;
-      } else {
-        errorMessage = document.createElement("p");
-        errorMessage.classList.add('error-message');
-        errorMessage.setAttribute('data-error', 'true');
-        errorMessage.setAttribute('data-error-visible', 'true');
-        errorMessage.innerHTML = lastErrorOfKey;
-        input.insertAdjacentElement("afterend", errorMessage);
-      }
-    }
+    input.insertAdjacentElement("afterend", newErrorMessage);
   } else {
-    const name = document.querySelector(`[name="${key}"]`);
-    let input;
-    if (name.name === 'locationLastTournament') {
-      input = document.getElementById('lastTournament');
-      let errorMessages = document.querySelectorAll('#lastTournament ~ .error-message');
-      errorMessages.forEach((errorMessage) => {
-        errorMessage.remove();
-      });
-    } else {
-      input = name;
-      input.classList.remove('error');
-      const errorMessage = document.querySelector(`[name="${key}"] ~ .error-message`);
-      if (errorMessage) {
-        errorMessage.remove();
-      }
+    input.classList.remove('error');
+    if (input.name === 'locationLastTournament') {
+      errorMessage = input.parentNode.previousElementSibling;
+      errorMessage.remove();
     }
+    errorMessage?.remove();
   }
 }
+
 
 // Values are valid if all errors are empty
 function validate(errors) {
