@@ -130,11 +130,14 @@ const eventHandler = (e) => {
   }
 
   // Rules for email
-  // if (e.type === 'submit' && email.length === 0) {
-  //   errors.email.push("Veuillez entrer votre email");
-  // }
+  if (e.type === 'submit' && email.length === 0) {
+    errors.email.push("Veuillez entrer votre email");
+  }
   if (email.length > 0 && !regexpEmail.test(email)) {
     errors.email.push("L'email entré n'est pas valide");
+  }
+  if (e.type !== 'submit' && regexpEmail.test(email)) {
+    errors.email = [];
   }
 
   const date = new Date(birthdate);
@@ -144,8 +147,14 @@ const eventHandler = (e) => {
   const formattedBirthdate = `${day}/${month}/${year}`;
   console.log('formattedBirthdate : ', formattedBirthdate);
   // Rules for birth date
+  if (e.type === 'submit' && formattedBirthdate === `NaN/NaN/NaN`) {
+    errors.birthdate.push("Veuillez entrer votre date de naissance");
+  }
   if (formattedBirthdate !== `NaN/NaN/NaN` && !regexpBirthdate.test(formattedBirthdate)) {
     errors.birthdate.push("La date entrée n'est pas valide");
+  }
+  if (e.type !== 'submit' && regexpBirthdate.test(formattedBirthdate)) {
+    errors.birthdate = [];
   }
 
   // Rules for number of passed tournaments
@@ -155,14 +164,11 @@ const eventHandler = (e) => {
   if (nbPassedTournaments > 0 && !regexpNbPassedTournaments.test(nbPassedTournaments)) {
     errors.nbPassedTournaments.push("Le nombre entré n'est pas valide");
   }
+  if (nbPassedTournaments < 0) {
+    errors.nbPassedTournaments.push("Le nombre doit être positif");
+  }
 
   // Rule for the location of the last tournament
-  // if (locationLastTournament === null) {
-  
-  //   e.preventDefault();
-  //   errors.locationLastTournament.push("Veuillez sélectionner la ville dans laquelle s'est déroulé votre dernier tournoi");
-  // }
-  
   if (e.type === 'submit' && locationLastTournament === null) {
     errors.locationLastTournament.push("Veuillez sélectionner la ville dans laquelle s'est déroulé votre dernier tournoi");
   }
