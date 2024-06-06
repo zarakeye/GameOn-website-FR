@@ -8,23 +8,11 @@
   margin-right: 30px;
   margin-top: 33px;
   margin-bottom: 28px;
-
-  @media (width > 540px) {
-    margin-left: 60px;
-    margin-right: 60px;
-    margin-top: 60px;
-    margin-bottom: 60px;
-  }
 }
 
 .header-logo img {
   width: 103px;
   height: 100%;
-
-  @media (width > 540px) {
-    width: 277px;
-    height: 100%;
-  }
 }
 
 .main-navbar {
@@ -33,10 +21,6 @@
   right: 0;
   top: 0;
   z-index: 4;
-
-  @media (width >= 1115px) {
-    display: block;
-  }
 
   ul {
     display: flex;
@@ -79,10 +63,6 @@
   font-family: Roboto, sans-serif;
   white-space: nowrap;
 
-  @media (width > 540px) {
-    height: 41px;
-  }
-
   &.active, &:hover {
     background-color: $color_1;
     color: $color_4;
@@ -95,7 +75,7 @@
 
 }
 
-.icon {
+.navicon {
   display: block;
   position: absolute;
   color: $color_1;
@@ -104,10 +84,6 @@
   right: 5px;
   z-index: 4;
   transform: scale();
-
-  @media (width >= 1115px) {
-    display: none;
-  }
  
   &:hover {
     background-color: $color_4;
@@ -117,9 +93,39 @@
   .fa.fa-bars {
     font-size: 19px;
     width: 100%;
+  }
+}
 
-    @media (width > 540px) {
+@media (width > 540px) {
+  .topnav {
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+
+  .header-logo img {
+    width: 277px;
+    height: 100%;
+  }
+
+  .navlink {
+    height: 41px;
+  }
+
+  .navicon {
+    .fa.fa-bars {
       font-size: 40px;
     }
+  }
+}
+
+@media (width >= 1115px) {
+  .main-navbar {
+    display: block;
+  }
+
+  .navicon {
+    display: none;
   }
 }
