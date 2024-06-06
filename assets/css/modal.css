@@ -1,5 +1,5 @@
 /* Colors */
-.bground {
+.overlay {
   display: none;
   position: absolute;
   z-index: 4;
@@ -236,7 +236,7 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
 }
 
 @media (width > 540px) {
-  .bground {
+  .overlay {
     position: fixed;
     top: 0;
     background-color: rgba(26, 39, 156, 0.4);
