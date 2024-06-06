@@ -1,4 +1,5 @@
-/* Colors */
+@import "variables";
+
 .bground {
   display: none;
   position: absolute;
@@ -13,12 +14,12 @@
   width: 100%;
   max-width: 500px;
   animation-name: modalopen;
-  animation-duration: 0.8s;
-  background: #232323;
+  animation-duration: $modalDuration;
+  background: $color_6;
   border-radius: 10px;
   overflow: hidden;
   position: relative;
-  color: #ffffff;
+  color: $color_4;
   padding-top: 10px;
   padding-bottom: 10px;
   top: 85px;
@@ -31,21 +32,24 @@
 }
 
 label {
-  font-family: "DM Sans", Arial, Helvetica, sans-serif;
+  font-family: $fontDefault;
   font-size: 14px;
   line-height: 14px;
   font-weight: normal;
   display: inline-block;
   margin-bottom: 11px;
-}
-label span {
-  color: #ff0000;
+
+  span {
+    color: $color_1;
+  }
 }
 
-input[type=text], input[type=email], input[type=date], input[type=number] {
-  padding: 8px;
-  border: 0.8px solid #ccc;
-  outline: none;
+input {
+  &[type="text"], &[type="email"], &[type="date"], &[type="number"] {
+    padding: 8px;
+    border: 0.8px solid #ccc;
+    outline: none;
+  }
 }
 
 #firstname, #lastname {
@@ -60,24 +64,22 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
   border-radius: 8px;
   font-size: 20px;
   height: 50px;
-  color: #000000;
+  color: $color_5;
 }
 
 .formData {
   margin-bottom: 5px;
   max-height: 109px;
-}
-.radio-group {
-  margin-bottom: 15px;
-}
-.formData.formData--submit {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
+  &.formData--submit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 #submit {
-  margin-top: 5px;
+  margin-top: 0px;
 }
 
 .formData.radio-group {
@@ -100,7 +102,7 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
   display: block;
   width: 20px;
   height: 20px;
-  border: 2px solid #279e7a;
+  border: 2px solid $color_8;
   border-radius: 50%;
   text-indent: 29px;
   white-space: nowrap;
@@ -114,7 +116,7 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
   content: "";
   width: 13px;
   height: 13px;
-  background-color: #279e7a;
+  background-color: $color_8;
   border-radius: 50%;
   text-indent: 29px;
   white-space: nowrap;
@@ -128,33 +130,39 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
 
 .chooseInput {
   display: none;
-}
-.chooseInput:checked + .radioBtn_label .choiceIcon::after {
-  opacity: 1;
-}
-.chooseInput:checked + .checkbox_label .choiceIcon {
-  background: #279e7a;
-}
-.chooseInput:checked + .checkbox_label .choiceIcon::after {
-  opacity: 1;
+
+  &:checked + {
+    .radioBtn_label .choiceIcon::after {
+      opacity: 1;
+    }
+
+    .checkbox_label .choiceIcon {
+      &::after {
+        opacity: 1;
+      }
+
+      background: $color_8;
+    }
+  }
 }
 
 .checkbox_label .choiceIcon {
   border-radius: 4px;
   border: 0;
   background: #c4c4c4;
-}
-.checkbox_label .choiceIcon::after {
-  width: 7px;
-  height: 4px;
-  border-radius: 2px;
-  background: transparent;
-  border: 2px solid transparent;
-  border-bottom-color: #ffffff;
-  border-left-color: #ffffff;
-  transform: rotate(-55deg);
-  left: 21%;
-  top: 19%;
+
+  &::after {
+    width: 7px;
+    height: 4px;
+    border-radius: 2px;
+    background: transparent;
+    border: 2px solid transparent;
+    border-bottom-color: $color_4;
+    border-left-color: $color_4;
+    transform: rotate(-55deg);
+    left: 21%;
+    top: 19%;
+  }
 }
 
 .modal--close {
@@ -166,20 +174,23 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
   opacity: 1;
   cursor: pointer;
   transform: scale(0.7);
-}
-.modal--close:before, .modal--close:after {
-  position: absolute;
-  left: 15px;
-  content: " ";
-  height: 33px;
-  width: 3px;
-  background-color: #ffffff;
-}
-.modal--close:before {
-  transform: rotate(45deg);
-}
-.modal--close:after {
-  transform: rotate(-45deg);
+
+  &:before, &:after {
+    position: absolute;
+    left: 15px;
+    content: " ";
+    height: 33px;
+    width: 3px;
+    background-color: $color_4;
+  }
+
+  &:before {
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    transform: rotate(-45deg);
+  }
 }
 
 .modal-body .cta {
@@ -193,14 +204,15 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
   align-items: center;
   top: 0;
   left: 0;
-  background: #232323;
+  background: $color_6;
   width: 100%;
   height: 100%;
   animation: unset;
-}
-.modal .modal .cta {
-  position: absolute;
-  bottom: 18px;
+
+  .cta {
+    position: absolute;
+    bottom: 18px;
+  }
 }
 
 .text-label {
@@ -210,31 +222,33 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
 }
 
 .error {
-  border: 2px solid #e54858;
+  border: 2px solid $color_3;
 }
 
 .attention {
   position: absolute;
   bottom: 10px;
   display: block;
-  color: #ff0000;
+  color: $color_1;
   font-size: 10px;
-  padding: 15px 8%;
+  padding-left: 8%;
+  padding-right: 8%;
 }
 
 .error-message {
   display: block;
-  color: #ff0000;
+  color: $color_1;
   font-size: 10px;
   padding: 0;
 }
 
 #lastTournament {
   padding-top: 11px;
-  padding-bottom: 11px;
-}
-#lastTournament ~ .error-message {
-  padding-top: 0;
+  margin-bottom: 11px;
+
+  ~ .error-message {
+    padding-top: 0;
+  }
 }
 
 @media (width > 540px) {
@@ -243,29 +257,34 @@ input[type=text], input[type=email], input[type=date], input[type=number] {
     top: 0;
     background-color: rgba(26, 39, 156, 0.4);
   }
+
   .modal {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     height: unset;
+
+    .modal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
-  .modal .modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+
   .text-control {
     height: 50px;
   }
 }
+
 @keyframes modalopen {
   from {
     opacity: 0;
     transform: translateY(-150px);
   }
+
   to {
     opacity: 1;
   }
-}/*# sourceMappingURL=modal.css.map */
+}

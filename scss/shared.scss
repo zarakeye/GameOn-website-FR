@@ -1,17 +1,18 @@
-/* Colors */
+@import "variables";
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
 /* Landing Page */
+
 body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
-  font-family: "DM Sans", Arial, Helvetica, sans-serif;
+  background-color: $color_4;
+  font-family: $fontDefault;
   font-size: 18px;
   max-width: 1300px;
   margin: 0 auto;
@@ -24,4 +25,4 @@ p {
 
 img {
   padding-right: 1rem;
-}/*# sourceMappingURL=shared.css.map */
+}

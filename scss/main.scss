@@ -1,16 +1,17 @@
-/* Colors */
+@import "variables";
+
 main {
   font-size: 130%;
   font-weight: bolder;
-  color: #000000;
+  color: $color_5;
   margin: 1px 30px;
   border-radius: 2rem;
   text-align: justify;
 }
 
 .cta {
-  background-color: #fe142f;
-  color: #ffffff;
+  background-color: $color_2;
+  color: $color_4;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,23 +26,25 @@ main {
   border-radius: 8px;
   border: 0;
   cursor: pointer;
-}
-.cta span {
-  display: inline-block;
-  white-space: nowrap;
+  
+  span {
+    display: inline-block;
+    white-space: nowrap;
+  }
 }
 
 .button {
-  background: #fe142f;
+  background: $color_2;
   margin-top: 0.5em;
   padding: 1em;
-  color: #ffffff;
+  color: $color_4;
   border-radius: 15px;
   cursor: pointer;
   font-size: 16px;
-}
-.button:hover {
-  background: #3876ac;
+
+  &:hover {
+    background: $color_7;
+  }
 }
 
 .smFont {
@@ -52,8 +55,9 @@ main {
   main {
     margin: 1px 60px;
   }
+
   .cta {
     font-size: 25px;
     height: 55px;
   }
-}/*# sourceMappingURL=main.css.map */
+}
