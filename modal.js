@@ -7,7 +7,7 @@ const modal = document.querySelector(".modal");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const XFormCloseBtn = document.getElementById("XFormCloseBtn");
 const formData = document.querySelectorAll(".formData");
-const iconNav = document.querySelector(".icon");
+const navicon = document.querySelector(".navicon");
 const modalBody = document.querySelector(".modal-body");
 
 
@@ -36,8 +36,6 @@ navlinks.forEach((link) => link.addEventListener("click", (e) => {
     navlinks.forEach((otherlink) => otherlink.classList.remove("active"));
     link.classList.add("active");
   }
-
-
 }));
 
 // launch modal event
@@ -62,7 +60,8 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
-iconNav.addEventListener("click", (e) => {
+
+navicon.addEventListener("click", (e) => {
     if (navbar.style.display === "none") {
       navbar.style.display = "block";
     } else {
