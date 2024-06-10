@@ -135,11 +135,14 @@ const formEventsHandler = (e) => {
   }
 
   // number of passed tournaments input validation rules
-  if (nbPassedTournaments > 0 && !regexpNbPassedTournaments.test(nbPassedTournaments)) {
+  if (nbPassedTournaments >= 0 && !regexpNbPassedTournaments.test(nbPassedTournaments)) {
     errors.nbPassedTournaments.push("Le nombre entré n'est pas valide");
   }
   if (nbPassedTournaments < 0) {
-    errors.nbPassedTournaments.push("Le nombre doit être positif");
+    errors.nbPassedTournaments.push("Le nombre doit être positif ou nul");
+  }
+  if (e.type !== 'submit' && regexpNbPassedTournaments.test(nbPassedTournaments)) {
+    errors.nbPassedTournaments = [];
   }
 
   // Rule for the location of the last tournament
