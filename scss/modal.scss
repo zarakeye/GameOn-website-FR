@@ -44,19 +44,14 @@ label {
   }
 }
 
-input {
-  &[type="text"], &[type="email"], &[type="date"], &[type="number"] {
-    padding: 8px;
-    border: 0.8px solid #ccc;
-    outline: none;
-  }
-}
-
 #firstname, #lastname {
   text-transform: capitalize;
 }
 
 .text-control {
+  padding: 8px;
+  border: 0.8px solid #ccc;
+  outline: none;
   margin: 0;
   padding: 8px;
   margin-bottom: 11px;
