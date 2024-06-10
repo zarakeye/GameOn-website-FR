@@ -70,7 +70,7 @@ const formEventsHandler = (e) => {
   const regexpName = /^(?![-'\\d])[-'a-zA-ZÀ-ÿ]+$/;
   const regexpNameForbiddenBeginning = /^[-'\\d]+[-'a-zA-ZÀ-ÿ]*$/
   const regexpEmail =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9]{2,4}$/;
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9]{2,}$/;
   const regexpBirthdate =
     /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[012])\/(19[0-9]{2}|20[0-9]{2})$/;
   const regexpNbPassedTournaments = /^[0-9]+$/;
