@@ -59,6 +59,9 @@ label span {
   height: 50px;
   color: #000000;
 }
+.text-control.error {
+  border: 2px solid #e54858;
+}
 
 .formData {
   margin-bottom: 5px;
@@ -201,10 +204,6 @@ label span {
   font-weight: normal;
   font-size: 14px;
   line-height: 18px;
-}
-
-.error {
-  border: 2px solid #e54858;
 }
 
 .attention {

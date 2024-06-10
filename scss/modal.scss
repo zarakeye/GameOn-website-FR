@@ -60,6 +60,10 @@ label {
   font-size: 20px;
   height: 50px;
   color: $color_5;
+
+  &.error {
+    border: 2px solid $color_3;
+  }
 }
 
 .formData {
@@ -214,10 +218,6 @@ label {
   font-weight: normal;
   font-size: 14px;
   line-height: 18px;
-}
-
-.error {
-  border: 2px solid $color_3;
 }
 
 .attention {

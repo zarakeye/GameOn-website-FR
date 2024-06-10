@@ -285,8 +285,7 @@ function displayFormInputErrors(errors, key) {
   } else {
     input.classList.remove('error');
     if (input.name === 'locationLastTournament') {
-      errorMessage = input.parentNode.previousElementSibling;
-      errorMessage.remove();
+      document.querySelector("#lastTournament ~ .error-message")?.remove();
     }
     errorMessage?.remove();
   }
