@@ -73,6 +73,9 @@ const formEventsHandler = (e) => {
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9]{2,}$/;
   const regexpBirthdate =
     /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[012])\/(19[0-9]{2}|20[0-9]{2})$/;
+  const currentDate = new Date();
+  const currentDateMinus18Years = currentDate.setFullYear(currentDate.getFullYear() - 18);
+
   const regexpNbPassedTournaments = /^[0-9]+$/;
 
   // first name input validation rules
@@ -119,11 +122,15 @@ const formEventsHandler = (e) => {
   }
 
   // birth date input validation rules
-  const date = new Date(birthdate);
-  const month = date.getUTCMonth() + 1;
-  const day = date.getUTCDate();
-  const year = date.getUTCFullYear();
-  const formattedBirthdate = `${day}/${month}/${year}`;
+  const selectedDate = new Date(birthdate);
+  const selectedMonth = selectedDate.getUTCMonth() + 1;
+  const selectedDay = selectedDate.getUTCDate();
+  const selectedYear = selectedDate.getUTCFullYear();
+
+  if (selectedDate > new Date(currentDateMinus18Years)) {
+    errors.birthdate.push("Vous devez avoir au moins 18 ans pour vous inscrire à un tournoi");
+  }
+  const formattedBirthdate = `${selectedDay}/${selectedMonth}/${selectedYear}`;
   if (formattedBirthdate === `NaN/NaN/NaN`) {
     errors.birthdate.push("Veuillez entrer votre date de naissance");
   }
